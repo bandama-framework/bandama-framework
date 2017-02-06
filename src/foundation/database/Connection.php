@@ -9,7 +9,7 @@ use Exception;
 /**
  * Database connection class
  *
- * @package App
+ * @package Bandama
  * @subpackage Foundation\Database
  * @author Jean-François YOBOUE <yoboue.kouamej@live.fr>
  * @version 1.0.0

@@ -5,7 +5,7 @@ namespace Bandama\Foundation\DependencyInjection;
 /**
  * Dependency Injection Container class
  *
- * @package App
+ * @package Bandama
  * @subpackage Foundation\DependencyInjection
  * @author Jean-François YOBOUE <yoboue.kouamej@live.fr>
  * @version 1.0.0

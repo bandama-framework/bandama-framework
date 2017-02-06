@@ -5,7 +5,7 @@ namespace Bandama\Foundation\Router;
 /**
  * Reprepent an route
  *
- * @package App
+ * @package Bandama
  * @subpackage Foundation\Router
  * @author Jean-François YOBOUE <yoboue.kouamej@live.fr>
  * @version 1.0.0

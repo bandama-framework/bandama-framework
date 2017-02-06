@@ -5,7 +5,7 @@ namespace Bandama\Foundation\Controller;
 /**
  * Base controller class
  *
- * @package App
+ * @package Bandama
  * @subpackage Foundation\Controller
  * @author Jean-François YOBOUE <yoboue.kouamej@live.fr>
  * @version 1.0.0
