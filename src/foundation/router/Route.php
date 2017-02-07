@@ -3,7 +3,7 @@
 namespace Bandama\Foundation\Router;
 
 /**
- * Reprepent an route
+ * Reprepent a route
  *
  * @package Bandama
  * @subpackage Foundation\Router
@@ -13,9 +13,8 @@ namespace Bandama\Foundation\Router;
  */
 class Route {
     // Fields
-
 	/**
-	 * @var string HTTP request path
+	 * @var string HTTP URL path
 	 */
 	private $path;
 
@@ -25,9 +24,10 @@ class Route {
 	private $callable;
 
 	/**
-	 * @var array
+	 * Route path parameters conditions
+	 *
+	 * @var array 
 	 */
-	private $matches = array();
 	private $params = array();
 
 
@@ -42,6 +42,7 @@ class Route {
 	 * @return void
 	 */
 	public function __construct($path, $callable) {
+		// Remove the start and end slash of path
 		$this->path = trim($path, '/');
 		$this->callable = $callable;
 	}
@@ -50,7 +51,7 @@ class Route {
     // Public Methods
 
 	/**
-	 * Add constraint to route
+	 * Add constraint to route parameter, implements Fluent design pattern
 	 *
 	 * @param string $param URI parameter name
 	 * @param string $regex Regular expression to apply to parameter
@@ -63,31 +64,39 @@ class Route {
 	}
 
 	/**
+	 * Test if the current route matches the URL 
 	 *
 	 * @param string $url
 	 *
-	 * @return boolean
+	 * @return boolean|mixed
 	 */
 	public function match($url) {
+		// Remove the start and end slash of URL
 		$url = trim($url, '/');
+		// Replace path parameters (:parameter) by 
 		$path = preg_replace_callback('#:([\w]+)#', [$this, 'paramMatch'], $this->path);
-
+		// Define the regex patterb with the new path after replaced the parameters of path
 		$regex = "#^$path$#i";
 
+		// Check if the url matchs the path
 		if (!preg_match($regex, $url, $matches)) {
 			return false;
 		}
-
+		
+		// Keep only the parameters
 		array_shift($matches);
-		$this->matches = $matches;
 
-		return true;
+		return $matches;
 	}
 
 	/**
+	 * Execute the callable of route 
+	 *
+	 * @param array $matches URL parameters
+	 *
 	 * @return mixed
 	 */
-	public function call() {
+	public function execute($matches) {
 		if (is_string($this->callable)) {
 			$params = explode('#', $this->callable);
 
@@ -100,7 +109,7 @@ class Route {
     			$controller = new $controller();
     			$action = $params[1].'Action';
 
-    			return call_user_func_array(array($controller, $action), $this->matches);
+    			return call_user_func_array(array($controller, $action), $matches);
 
 
     			return $controller->$action();
@@ -110,7 +119,7 @@ class Route {
             }
 
 		} else {
-			return call_user_func_array($this->callable, $this->matches);
+			return call_user_func_array($this->callable, $matches);
 		}
 	}
 
@@ -131,9 +140,11 @@ class Route {
 
 
     // Private Methods
-
 	/**
-	 * @param array $match
+	 * Return regular expression in parameters conditions (params) of path parameter names or if not
+	 * defined in parameters conditions return the parameter value  
+	 *
+	 * @param array $match Array of matches parameters
 	 *
 	 * @return string
 	 */
