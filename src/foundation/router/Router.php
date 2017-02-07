@@ -13,12 +13,6 @@ namespace Bandama\Foundation\Router;
  */
 class Router {
     // Fields
-
-	/**
-	 * @var string HTTP request URL
-	 */
-	private $url;
-
 	/**
 	 * @var array Collection of routes without name
 	 */
@@ -31,8 +25,7 @@ class Router {
 
 
     // Constructors
-	public function __construct($url) {
-		$this->url = $url;
+	public function __construct() {
 	}
 
 
@@ -75,24 +68,28 @@ class Router {
 	}
 
 	/**
-	 * Route HTTP request to callable
+	 * Execute a callable of route that matchs the URL
+	 *
+	 * @param string $url HTTP request URL
 	 *
 	 * @throws RouterException When HTTP method doesn't exists or no route found
 	 *
 	 * @return mixed
 	 */
-	public function route() {
+	public function route($url) {
 		if (!isset($this->routes[$_SERVER['REQUEST_METHOD']])) {
-			throw new RouterException('REQUEST_METHOD does not exist : url = ');
+			throw new RouterException("REQUEST_METHOD does not exist : url = $url");
 		}
 
 		foreach ($this->routes[$_SERVER['REQUEST_METHOD']] as $route) {
-			if ($route->match($this->url)) {
-				return $route->call();
+			$matches = $route->match($url);
+		
+			if (is_array($matches)) {
+				return $route->execute($matches);
 			}
 		}
 
-		throw new RouterException('No route matches');
+		throw new RouterException("No route matches the URL $url");
 	}
 
 	/**
@@ -115,7 +112,7 @@ class Router {
     // Private Methods
 
 	/**
-	 * Add route to collection of routes
+	 * Add route to collection of routes, implements Fluent design pattern
 	 *
 	 * @param string $path HTTP request path
 	 * @param string $callable Class method or function to call
