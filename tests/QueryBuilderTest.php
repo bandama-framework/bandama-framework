@@ -5,7 +5,8 @@ namespace Bandama\Test;
 use Bandama\Foundation\Database\QueryBuilder;
 
 
-class QueryBuilderTest extends \PHPUnit_Framework_TestCase {
+class QueryBuilderTest extends \PHPUnit_Framework_TestCase {	
+
     public function testSelectEverythingFromTable() {
         $query = new QueryBuilder();
         $query->select('*')->from('table');
@@ -46,5 +47,15 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase {
         $query = new QueryBuilder();
         $query->select('id, first_name, last_name, email')->from('table1', 't1')->from('table2', 't2');
         $this->assertEquals(strval($query), 'SELECT id, first_name, last_name, email FROM table1 AS t1, table2 AS t2;');
+    }
+
+    public function testWhereEmpty() {
+        $query = new QueryBuilder();
+        $query->select('*')->from('table');
+        $this->assertEquals(strval($query), 'SELECT * FROM table;');
+    }
+
+    public function testWhereWithOneCondition() {
+        
     }
 }
