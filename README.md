@@ -1,12 +1,12 @@
 # Bandama Framwork
 
-[![License]
+[![License]]
 
 Bandama is a PHP micro-framwork to create Web Applications and Web APIs
 
 ## Installation
 
-It's recommended that you use [Composer](https://getcomposer.org/) to install Slim.
+It's recommended that you use [Composer](https://getcomposer.org/) to install Bandama.
 
 ```bash
 $ composer require bandama/framwork "^1.0"

@@ -97,7 +97,7 @@ class Route {
 	 * @return mixed
 	 */
 	public function execute($matches) {
-		if (is_string($this->callable)) {
+		if (is_string($this->callable)) { // If the callable is a string, call the action of controller
 			$params = explode('#', $this->callable);
 
             if (count($params) == 2) {
@@ -118,13 +118,15 @@ class Route {
                 throw new RouterException('Invalid controller name '.$this->callable);
             }
 
-		} else {
+		} else { // If the callable is a function, execute the function
 			return call_user_func_array($this->callable, $matches);
 		}
 	}
 
 	/**
-	 * @param array $params
+	 * Generate the URL with the parameters
+	 *
+	 * @param array $params Route parameters
 	 *
 	 * @return string
 	 */
