@@ -102,7 +102,7 @@ class Router {
 	 */
 	public function url($name, $params = array()) {
 		if (!isset($this->namedRoutes[$name])) {
-			throw new RouterException('No route matches this name');
+			throw new RouterException("No route matches this name : $name");
 		}
 
 		return $this->namedRoutes[$name]->getUrl($params);
@@ -130,6 +130,7 @@ class Router {
 			$name = $callable;
 		}
 
+		// If the route has a name, add to named routes collection
 		if ($name) {
 			$this->namedRoutes[$name] = $route;
 		}
