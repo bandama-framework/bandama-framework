@@ -1,15 +1,15 @@
-# Bandama Framwork
+# Bandama Framework
 
 [![License](https://github.com/jfyoboue/bandama-framwork/blob/develop/LICENSE.md)](https://github.com/jfyoboue/bandama-framwork/blob/develop/LICENSE.md)
 
-Bandama is a PHP micro-framwork to create Web Applications and Web APIs
+Bandama is a PHP micro-framework to create Web Applications and Web APIs
 
 ## Installation
 
 It's recommended that you use [Composer](https://getcomposer.org/) to install Bandama.
 
 ```bash
-$ composer require bandama/framwork "^1.0"
+$ composer require bandama/framework "^1.0"
 ```
 
 This will install Bandama and all required dependencies. Bandama requires PHP 5.3.2 or newer.
