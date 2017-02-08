@@ -20,4 +20,4 @@ This will install Bandama and all required dependencies. Bandama requires PHP 5.
 
 ## License
 
-The Banadam Framework is licensed under the MIT license. See [License File](LICENSE.md) for more information.
+The Bandama Framework is licensed under the MIT license. See [License File](LICENSE.md) for more information.
