@@ -1,6 +1,6 @@
 # Bandama Framwork
 
-[![License]]
+[![License](https://github.com/jfyoboue/bandama-framwork/blob/develop/LICENSE.md)](https://github.com/jfyoboue/bandama-framwork/blob/develop/LICENSE.md)
 
 Bandama is a PHP micro-framwork to create Web Applications and Web APIs
 
