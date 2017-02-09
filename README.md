@@ -1,6 +1,7 @@
 # Bandama Framework
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/jfyoboue/bandama-framwork/blob/develop/LICENSE.md)
+[![Coverage Status](https://coveralls.io/repos/github/jfyoboue/bandama-framework/badge.svg)](https://coveralls.io/github/jfyoboue/bandama-framework)
 
 Bandama is a PHP micro-framework to create Web Applications and Web APIs
 
