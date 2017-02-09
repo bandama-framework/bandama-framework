@@ -1,6 +1,6 @@
 # Bandama Framework
 
-[![License](https://github.com/jfyoboue/bandama-framwork/blob/develop/LICENSE.md)](https://github.com/jfyoboue/bandama-framwork/blob/develop/LICENSE.md)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/jfyoboue/bandama-framwork/blob/develop/LICENSE.md)
 
 Bandama is a PHP micro-framework to create Web Applications and Web APIs
 
@@ -19,14 +19,16 @@ This will install Bandama and all required dependencies. Bandama requires PHP 5.
 Create an index.php file with the following contents:
 
 ```php
-<?php
+?php
 
-require 'vendor/autoload.php';
+require(__DIR__.'/vendor/autoload.php');
 
-$app = new Slim\App();
 
-$app->get('/hello/{name}', function ($request, $response, $args) {
-    return $response->write("Hello, " . $args['name']);
+$app = Bandama\App::getInstance(null, Bandama\App::APP_MODE_DEV);
+$router = $app->get('router');
+
+$router->get('/hello/:name', function($name) {
+    echo "<pre> Hello, $name";
 });
 
 $app->run();
@@ -34,12 +36,11 @@ $app->run();
 
 You may quickly test this using the built-in PHP server:
 ```bash
-$ php -S localhost:8000
+$ php -S localhost:8008
 ```
 
-Going to http://localhost:8000/hello/world will now display "Hello, world".
+Going to http://localhost:8008/hello/world will now display "Hello, world".
 
-For more information on how to configure your web server, see the [Documentation](https://www.slimframework.com/docs/start/web-servers.html).
 
 ## Tests
 

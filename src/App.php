@@ -21,6 +21,12 @@ use Bandama\Foundation\Session\Flash;
 class App {
     // Fields
     /**
+     * @var string Application execution mode (development, preproduction, production)
+     */
+    protected $mode;
+
+
+    /**
      * @var array Application configuration file
      */
     protected $configFile;
@@ -34,6 +40,12 @@ class App {
      * @var App Uniq instance of App class
      */
     protected static $_instance;
+
+
+    // Constants
+    const APP_MODE_DEV = 'dev';
+    const APP_MODE_PREPROD = 'preprod';
+    const APP_MODE_PROD = 'prod';
 
 
     // Properties
@@ -55,8 +67,9 @@ class App {
      *
      * @return void
      */
-    protected function __construct($configFile) {
+    protected function __construct($configFile, $mode) {
         $this->configFile = $configFile;
+        $this->mode = $mode;
         $this->setup();
     }
 
@@ -69,9 +82,9 @@ class App {
      *
      * @return App
      */
-    public static function getInstance($configFile = null) {
+    public static function getInstance($configFile = null, $mode = self::PROD) {
         if (is_null(self::$_instance)) {
-            self::$_instance = new self($configFile);
+            self::$_instance = new self($configFile, $mode);
         }
 
         return self::$_instance;
@@ -83,7 +96,11 @@ class App {
      * @return mixed
      */
     public function run() {
-        $this->get('router')->route($_GET['url']);
+        if (strcmp($this->mode, self::APP_MODE_DEV) == 0) {
+            $this->get('router')->route($_SERVER['REQUEST_URI']);
+        } else {
+            $this->get('router')->route($_GET['url']);
+        }
     }
 
     /**
