@@ -107,27 +107,29 @@ class App {
      * @return void
      */
     protected function setup() {
-        $this->container = new Container();
+        $container = new Container();
         $config = new Configuration($this->configFile);
 
-        $this->container->set('config', function() use ($config) {
+        $container->set('config', function() use ($config) {
                 return $config;
         });
 
-        $this->container->set('session', function() {
+        $container->set('session', function() {
             return new Session();
         });
 
-        $this->container->set('router', function() {
+        $container->set('router', function() {
             return new Router();
         });
 
-        $this->container->set('cookie', function() {
+        $container->set('cookie', function() {
             return new Cookie();
         });
         
-        $this->setFlash('flash', function() use ($container) {
+        $container->set('flash', function() use ($container) {
             return new Flash($container->get('session'));
         });
+
+        $this->container = $container;
     }
 }

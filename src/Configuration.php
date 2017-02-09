@@ -26,7 +26,9 @@ class Configuration {
      * @return void
      */
     public function __construct($configFile) {
-        $this->settings = require($configFile);
+        if ($configFile != null && !empty($configFile)) {
+            $this->settings = require($configFile);
+        }   
     }
 
 
