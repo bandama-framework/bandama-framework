@@ -79,10 +79,14 @@ class QueryBuilder {
      * @return string
      */
     public function getQuery() {
-        return 'SELECT '.implode(', ', $this->fields)
-              .' FROM '.implode(', ', $this->from)
-              .' WHERE '.implode(' AND ', $this->conditions)
-              .';';
+        $query = 'SELECT '.implode(', ', $this->fields)
+                .' FROM '.implode(', ', $this->from);
+        if (count($this->conditions) > 0) {
+            $query = $query.' WHERE '.implode(' AND ', $this->conditions);
+        }
+        $query = rtrim($query).';';
+        
+        return $query;
     }
 
 
