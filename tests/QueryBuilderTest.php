@@ -2,7 +2,7 @@
 
 namespace Bandama\Test;
 
-use Bandama\Foundation\Database\QueryBuilder;
+use \Bandama\Foundation\Database\QueryBuilder;
 
 
 class QueryBuilderTest extends \PHPUnit_Framework_TestCase {	
