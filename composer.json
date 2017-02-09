@@ -3,18 +3,19 @@
     "description": "Bandama is a microframework for PHP application",
     "type": "library",
     "license": "MIT",
-    "version": "1.0.2-dev",
+    "version": "1.0.3-dev",
     "authors": [{
         "name": "Jean-François YOBOUE",
         "email": "yoboue.kouamej@live.fr",
         "role": "Developer"
     }],
     "require-dev": {
+        "php": ">=5.6",
         "phpunit/phpunit": "^4.8",
         "phpdocumentor/phpdocumentor": "2.*"
     },
     "require": {
-        "php": ">=5.3.2"
+        "php": ">=5.3.3"
     },
     "autoload-dev": {
         "psr-4": {
