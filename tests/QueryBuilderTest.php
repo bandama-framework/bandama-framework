@@ -56,6 +56,14 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testWhereWithOneCondition() {
-        
+        $query = new QueryBuilder();
+        $query->select('*')->from('table')->where('id = 1');
+        $this->assertEquals(strval($query), 'SELECT * FROM table WHERE id = 1;');
+    }
+
+    public function testWhereWithNCondition() {
+        $query = new QueryBuilder();
+        $query->select('*')->from('table')->where('id = 1', "name = 'name'");
+        $this->assertEquals(strval($query), "SELECT * FROM table WHERE id = 1 AND name = 'name';");
     }
 }
