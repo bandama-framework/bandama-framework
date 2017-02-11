@@ -8,6 +8,7 @@
 
 Bandama is a PHP micro-framework to create Web Applications and Web APIs
 
+
 ## Installation
 
 It's recommended that you use [Composer](https://getcomposer.org/) to install Bandama.
@@ -17,6 +18,7 @@ $ composer require bandama/framework "^1.0"
 ```
 
 This will install Bandama and all required dependencies. Bandama requires PHP 5.3.2 or newer.
+
 
 ## Usage
 
@@ -46,13 +48,43 @@ $ php -S localhost:8008
 Going to http://localhost:8008/hello/world will now display "Hello, world".
 
 
+## Components
+
+### Router
+### Session
+### Controller
+### Dependency Injection Container
+### Database Connection
+
+
 ## Tests
 
-To execute the test suite, you'll need phpunit.
+To execute the test suite, you'll need phpunit. If you are phpunit installed globally on your computer, type
+
+```bash
+$ phpunit
+```
+
+Else, edit the require-dev par of composer.json file to add
+
+```json
+"require-dev": {
+    "phpunit/phpunit": "^4.8"
+}
+```
+
+And to install dependencies, run
+
+```bash
+$ composer update
+```
+
+Finally, to run the tests, do
 
 ```bash
 $ vendor/bin/phpunit
 ```
+
 
 ## Credits
 
