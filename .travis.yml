@@ -9,7 +9,8 @@ php:
     - hhvm
 
 before_install:
-    - composer install --dev
+    #- composer install --dev
 
 script:
+    #- vendor/bin/phpunit
     - phpunit
