@@ -13,7 +13,6 @@ namespace Bandama\Foundation\DependencyInjection;
  */
 class Container {
     // Fields
-
 	/**
 	 * @var array Associative array (string, Callable) of classes. Assume uniq instance
 	 */
@@ -28,6 +27,35 @@ class Container {
 	 * @var array Associative array (string, Object) of classes.
 	 */
 	private $instances;
+
+
+	// Properties
+	/**
+	 * Get registry
+	 *
+	 * @return array
+	 */
+	public function getRegistry() {
+		return $this->registry;
+	}
+
+	/**
+	 * Get factories
+	 *
+	 * @return array
+	 */
+	public function getFactories() {
+		return $this->factories;
+	}
+
+	/**
+	 * Get instances
+	 *
+	 * @return array
+	 */
+	public function getInstances() {
+		return $this->instances;
+	}
 
 
     // Constructors
