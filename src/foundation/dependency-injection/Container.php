@@ -2,6 +2,9 @@
 
 namespace Bandama\Foundation\DependencyInjection;
 
+use \ReflectionClass;
+use \Exception;
+
 /**
  * Dependency Injection Container class
  *
