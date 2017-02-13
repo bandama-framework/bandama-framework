@@ -62,7 +62,7 @@ class Connection {
 	 *
 	 * @return string
 	 */
-	public function getDriver(){
+	public function getDriver() {
 		return $this->driver;
 	}
 
@@ -71,7 +71,7 @@ class Connection {
 	 *
 	 * @return string
 	 */
-	public function getHost(){
+	public function getHost() {
 		return $this->host;
 	}
 
@@ -80,7 +80,7 @@ class Connection {
 	 *
 	 * @return int
 	 */
-	public function getPort(){
+	public function getPort() {
 		return $this->host;
 	}
 
@@ -89,7 +89,7 @@ class Connection {
 	 *
 	 * @return string
 	 */
-	public function getDatabase(){
+	public function getDatabase() {
 		return $this->database;
 	}
 
@@ -98,7 +98,7 @@ class Connection {
 	 *
 	 * @return string
 	 */
-	public function getUser(){
+	public function getUser() {
 		return $this->user;
 	}
 
@@ -120,7 +120,7 @@ class Connection {
 	 *
 	 * @return void
 	 */
-	function __construct($parameters){
+	function __construct($parameters) {
 		$this->driver = $parameters["database_driver"];
 		$this->host = $parameters["database_host"];
 		$this->port = $parameters["database_port"];
@@ -144,8 +144,8 @@ class Connection {
 	 *
 	 * @return PDO
 	 */
-	public function getConnection(){
-		try{
+	public function getConnection() {
+		try {
 			$pdo = null;
 
 			switch($this->driver){
@@ -157,6 +157,8 @@ class Connection {
 					break;
 				default:
 					throw new  Exception("Database driver not defined");
+				}
+
 				if (count($this->attributes) > 0) {
 					foreach ($this->attributes as $attribute) {
 						$pdo->setAttribute($attribute['name'], $attribute['value']);
@@ -164,10 +166,10 @@ class Connection {
 				}
 
 				return $pdo;
-			}
-		}catch(PDOException $e){
+
+		} catch (PDOException $e) {
 			throw new PDOException('Unable to connect to database, errorMessage = '.$e->getMessage());
-		}catch(Exception $e){
+		} catch (Exception $e) {
 			throw new Exception('Internal error, errorMessage = '.$e->getMessage());
 		}
 	}
@@ -175,7 +177,7 @@ class Connection {
 	/**
 	 * @see Connection::getConnection()
 	 */
-	public function open(){
+	public function open() {
 		return $this->getConnection();
 	}
 
