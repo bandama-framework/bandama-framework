@@ -150,10 +150,10 @@ class Connection {
 
 			switch($this->driver){
 				case "pdo_mysql":
-					$pdo = new PDO("mysql:host=".$this->host.";dbname=".$this->database.";charset=utf8", $this->user, $this->password, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION ));
+					$pdo = new PDO("mysql:host=".$this->host.";dbname=".$this->database.";charset=utf8", $this->user, $this->password);
 					break;
 				case "pdo_sqlserver":
-					$pdo = new PDO("sqlsrv:Server=".$this->host.";Database=".$this->database, $this->user, $this->password, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION ));
+					$pdo = new PDO("sqlsrv:Server=".$this->host.";Database=".$this->database, $this->user, $this->password);
 					break;
 				default:
 					throw new  Exception("Database driver not defined");
