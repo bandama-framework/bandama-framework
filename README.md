@@ -51,9 +51,6 @@ Going to http://localhost:8008/hello/world will now display "Hello, world".
 ## Components
 
 1. Router
-
-A router is the component that route HTTP request to corresponding action of controller
-
 2. Session
 3. Controller
 4. Dependency Injection Container

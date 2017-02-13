@@ -10,7 +10,7 @@ php:
 
 before_install:
     #- composer install --dev
-    - composer update
+    - composer update --no-dev
 
 script:
     #- vendor/bin/phpunit
