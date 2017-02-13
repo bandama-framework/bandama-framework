@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/jfyoboue/bandama-framework.svg?branch=master)](https://travis-ci.org/jfyoboue/bandama-framework)
 [![Coverage Status](https://coveralls.io/repos/github/jfyoboue/bandama-framework/badge.svg?branch=master)](https://coveralls.io/github/jfyoboue/bandama-framework)
 [![Total Downloads](https://poser.pugx.org/bandama/framework/downloads)](https://packagist.org/packages/bandama/framework)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/jfyoboue/bandama-framwork/blob/develop/LICENSE.md)
+[![License](https://poser.pugx.org/bandama/framework/license)](https://packagist.org/packages/bandama/framework)
 
 Bandama is a PHP micro-framework to create Web Applications and Web APIs
 
