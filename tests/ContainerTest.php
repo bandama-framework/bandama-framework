@@ -25,7 +25,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
         $controller1 = $container->get('controller');
         $controller2 = $container->get('controller');
 
-        $this->assertInstanceOf('Bandama\\Test\\FakeController', $controller1);
+        $this->assertInstanceOf(FakeController::class, $controller1);
         $this->assertSame($controller1, $controller2);
     }
 
