@@ -111,8 +111,8 @@ class Container {
 	 */
 	public function setInstance($instance) {
 		$reflection = new ReflectionClass($instance);
-
-		$this->instances[$reflection->getName()] = $instance;
+		$name = str_replace('\\', ':', $reflection->getName());
+		$this->instances[$name] = $instance;
 	}
 
 	/**
@@ -133,7 +133,8 @@ class Container {
 			if (isset($this->registry[$key])) {
 				$this->instances[$key] = $this->registry[$key]();
 			} else {
-				$reflectedClass = new ReflectionClass($key);
+				$className = str_replace(':', '\\', $key);
+				$reflectedClass = new ReflectionClass($className);
 
 				if ($reflectedClass->isInstantiable()) {
 					$constructor = $reflectedClass->getConstructor();
