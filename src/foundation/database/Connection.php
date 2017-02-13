@@ -12,7 +12,8 @@ use Exception;
  * @package Bandama
  * @subpackage Foundation\Database
  * @author Jean-François YOBOUE <yoboue.kouamej@live.fr>
- * @version 1.0.0
+ * @version 1.0.1
+ * @since 1.0.1 Adding PDO attributes
  * @since 1.0.0 Class creation
  */
 class Connection {
@@ -47,6 +48,11 @@ class Connection {
 	 * @var string Database password
 	 */
 	protected $password;
+
+	/**
+	 * @var array Define attributes for PDO object
+	 */
+	protected $attributes;
 
 
 	// Properties
@@ -96,6 +102,15 @@ class Connection {
 		return $this->user;
 	}
 
+	/**
+	 * Get PDO objct attributes
+	 *
+	 * @return array
+	 */
+	public function getAttributes() {
+		return $this->attributes;
+	}
+
 	// Constructors
 
 	/**
@@ -112,6 +127,11 @@ class Connection {
 		$this->database = $parameters["database_name"];
 		$this->user = $parameters["database_user"];
 		$this->password = $parameters["database_password"];
+		if (isset($parameters['attributes'])) {
+			$this->attributes = $parameters['attributes'];
+		} else {
+			$this->attributes = array();
+		}
 	}
 
 	// Public Methods
@@ -126,11 +146,24 @@ class Connection {
 	 */
 	public function getConnection(){
 		try{
+			$pdo = null;
+
 			switch($this->driver){
 				case "pdo_mysql":
-					return new PDO("mysql:host=".$this->host.";dbname=".$this->database.";charset=utf8", $this->user, $this->password, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION ));
+					$pdo = new PDO("mysql:host=".$this->host.";dbname=".$this->database.";charset=utf8", $this->user, $this->password, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION ));
+					break
 				case "pdo_sqlserver":
-					return new PDO("sqlsrv:Server=".$this->host.";Database=".$this->database, $this->user, $this->password, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION ));
+					$pdo new PDO("sqlsrv:Server=".$this->host.";Database=".$this->database, $this->user, $this->password, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION ));
+					break;
+				default:
+					throw new  Exception("Database driver not defined");
+				if (count($this->attributes) > 0) {
+					foreach ($this->attributes as $attribute) {
+						$pdo->setAttribute($attribute['name'], $attribute['value']);
+					}
+				}
+
+				return $pdo;
 			}
 		}catch(PDOException $e){
 			throw new PDOException('Unable to connect to database, errorMessage = '.$e->getMessage());

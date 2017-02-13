@@ -51,10 +51,13 @@ Going to http://localhost:8008/hello/world will now display "Hello, world".
 ## Components
 
 ### Router
-### Session
-### Controller
-### Dependency Injection Container
-### Database Connection
+
+A router is the component that route HTTP request to corresponding action of controller
+
+1. Session
+1. Controller
+3. Dependency Injection Container
+4. Database Connection
 
 
 ## Tests
@@ -65,7 +68,7 @@ To execute the test suite, you'll need phpunit. If you are phpunit installed glo
 $ phpunit
 ```
 
-Else, edit the require-dev par of composer.json file to add
+Else, edit the require-dev section of composer.json file to add
 
 ```json
 "require-dev": {
