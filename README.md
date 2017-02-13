@@ -50,14 +50,15 @@ Going to http://localhost:8008/hello/world will now display "Hello, world".
 
 ## Components
 
-### Router
+1. Router
 
 A router is the component that route HTTP request to corresponding action of controller
 
-1. Session
-1. Controller
-3. Dependency Injection Container
-4. Database Connection
+2. Session
+3. Controller
+4. Dependency Injection Container
+5. Database Connection
+6. Query Builder
 
 
 ## Tests
@@ -68,18 +69,18 @@ To execute the test suite, you'll need phpunit. If you are phpunit installed glo
 $ phpunit
 ```
 
-Else, edit the require-dev section of composer.json file to add
+Else, run
+
+```bash
+composer update
+```
+
+This command will install PHPUnit library defined in require-dev section of composer.json file
 
 ```json
 "require-dev": {
     "phpunit/phpunit": "^4.8"
 }
-```
-
-And to install dependencies, run
-
-```bash
-$ composer update
 ```
 
 Finally, to run the tests, do
