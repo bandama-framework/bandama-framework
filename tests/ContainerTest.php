@@ -87,4 +87,22 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
 
         $this->assertInstanceOf(FakeAddress::class, $container->get('Bandama:Test:FakePerson')->getAddress());
     }
+
+    /**
+     * @expectedException Exception
+     */
+    public function testGetWithNotInstanciableClass() {
+        $container = new Container();
+
+        $container->get('Bandama:Test:FakeNotInstanciable');
+    }
+
+    public function testGetWithParametrizedConstructorClass() {
+        $container = new Container();
+
+        $obj = $container->get('Bandama:Test:FakeParametrizedConstructor');
+
+        $this->assertEquals(0, $obj->getId());
+        $this->assertEquals('', $obj->getName());
+    }
 }
