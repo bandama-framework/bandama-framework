@@ -52,10 +52,11 @@ Going to http://localhost:8008/hello/world will now display "Hello, world".
 
 1. Router
 2. Session
-3. Controller
-4. Dependency Injection Container
-5. Database Connection
-6. Query Builder
+3. Cookie
+4. Controller
+5. Dependency Injection Container
+6. Database Connection
+7. Query Builder
 
 
 ## Tests
