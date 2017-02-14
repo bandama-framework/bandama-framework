@@ -9,6 +9,7 @@ php:
 
 before_install:
     - composer update
+    - composer dump-autoload
 
 script:
     - bin/phpunit
