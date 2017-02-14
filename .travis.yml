@@ -8,7 +8,7 @@ php:
     - '7.1'
 
 before_install:
-    - composer update --dev
+    - composer update
 
 script:
     - bin/phpunit
