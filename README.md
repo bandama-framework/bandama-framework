@@ -69,21 +69,7 @@ $ phpunit
 Else, run
 
 ```bash
-composer update
-```
-
-This command will install PHPUnit library defined in require-dev section of composer.json file
-
-```json
-"require-dev": {
-    "phpunit/phpunit": "^4.8"
-}
-```
-
-Finally, to run the tests, do
-
-```bash
-$ vendor/bin/phpunit
+$ bin/phpunit
 ```
 
 
