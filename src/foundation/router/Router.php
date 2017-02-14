@@ -9,6 +9,7 @@ namespace Bandama\Foundation\Router;
  * @subpackage Foundation\Router
  * @author Jean-François YOBOUE <yoboue.kouamej@live.fr>
  * @version 1.0.0
+ * @since 1.0.1 Adding getters for fields
  * @since 1.0.0 Class creation
  */
 class Router {
@@ -22,6 +23,26 @@ class Router {
 	 * @var array Collection of named routes
 	 */
 	private $namedRoutes = array();
+
+
+	// Properties
+	/**
+	 * Get all routes
+	 *
+	 * @return array
+	 */
+	public function getRoutes() {
+		return $this->routes;
+	}
+
+	/**
+	 * Get named routes
+	 *
+	 * @return array
+	 */
+	public function getNamedRoutes() {
+		return $this->namedRoutes;
+	}
 
 
     // Constructors
@@ -83,7 +104,7 @@ class Router {
 
 		foreach ($this->routes[$_SERVER['REQUEST_METHOD']] as $route) {
 			$matches = $route->match($url);
-		
+
 			if (is_array($matches)) {
 				return $route->execute($matches);
 			}

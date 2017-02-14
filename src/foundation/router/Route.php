@@ -8,7 +8,8 @@ namespace Bandama\Foundation\Router;
  * @package Bandama
  * @subpackage Foundation\Router
  * @author Jean-François YOBOUE <yoboue.kouamej@live.fr>
- * @version 1.0.0
+ * @version 1.0.1
+ * @since 1.0.1 Adding getters methods for fields
  * @since 1.0.0 Class creation
  */
 class Route {
@@ -26,13 +27,41 @@ class Route {
 	/**
 	 * Route path parameters conditions
 	 *
-	 * @var array 
+	 * @var array
 	 */
 	private $params = array();
 
 
-    // Constructors
+	// Properties
+	/**
+	 * Get path
+	 *
+	 * @return string
+	 */
+	public function getPath() {
+		return $this->path;
+	}
 
+	/**
+	 * Get callable
+	 *
+	 * @return Callable|string
+	 */
+	public function getCallable() {
+		return $this->callable;
+	}
+
+	/**
+	 * Get params
+	 *
+	 * @return array
+	 */
+	public function getParams() {
+		return $this->params;
+	}
+
+
+    // Constructors
 	/**
 	 * Constructor
 	 *
@@ -64,7 +93,7 @@ class Route {
 	}
 
 	/**
-	 * Test if the current route matches the URL 
+	 * Test if the current route matches the URL
 	 *
 	 * @param string $url
 	 *
@@ -73,7 +102,7 @@ class Route {
 	public function match($url) {
 		// Remove the start and end slash of URL
 		$url = trim($url, '/');
-		// Replace path parameters (:parameter) by 
+		// Replace path parameters (:parameter) by
 		$path = preg_replace_callback('#:([\w]+)#', [$this, 'paramMatch'], $this->path);
 		// Define the regex patterb with the new path after replaced the parameters of path
 		$regex = "#^$path$#i";
@@ -82,7 +111,7 @@ class Route {
 		if (!preg_match($regex, $url, $matches)) {
 			return false;
 		}
-		
+
 		// Keep only the parameters
 		array_shift($matches);
 
@@ -90,7 +119,7 @@ class Route {
 	}
 
 	/**
-	 * Execute the callable of route 
+	 * Execute the callable of route
 	 *
 	 * @param array $matches URL parameters
 	 *
@@ -144,7 +173,7 @@ class Route {
     // Private Methods
 	/**
 	 * Return regular expression in parameters conditions (params) of path parameter names or if not
-	 * defined in parameters conditions return the parameter value  
+	 * defined in parameters conditions return the parameter value
 	 *
 	 * @param array $match Array of matches parameters
 	 *

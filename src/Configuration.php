@@ -8,7 +8,8 @@ namespace Bandama;
  *
  * @package Bandama
  * @author Jean-François YOBOUE <yoboue.kouamej@live.fr>
- * @version 1.0.0
+ * @version 1.0.1
+ * @since 1.0.1 Adding getters for properties
  * @since 1.0.0 Class creation
  */
 class Configuration {
@@ -17,6 +18,17 @@ class Configuration {
      * @var array Configuration settings
      */
     private $settings = array();
+
+
+    // Properties
+    /**
+     * Return configuration parameters
+     *
+     * @return array;
+     */
+    public function getSettings() {
+        return $this->settings;
+    }
 
 
     // Constructors
@@ -28,7 +40,7 @@ class Configuration {
     public function __construct($configFile) {
         if ($configFile != null && !empty($configFile)) {
             $this->settings = require($configFile);
-        }   
+        }
     }
 
 

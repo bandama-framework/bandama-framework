@@ -4,9 +4,10 @@
 [![Build Status](https://travis-ci.org/jfyoboue/bandama-framework.svg?branch=master)](https://travis-ci.org/jfyoboue/bandama-framework)
 [![Coverage Status](https://coveralls.io/repos/github/jfyoboue/bandama-framework/badge.svg?branch=master)](https://coveralls.io/github/jfyoboue/bandama-framework)
 [![Total Downloads](https://poser.pugx.org/bandama/framework/downloads)](https://packagist.org/packages/bandama/framework)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/jfyoboue/bandama-framwork/blob/develop/LICENSE.md)
+[![License](https://poser.pugx.org/bandama/framework/license)](https://packagist.org/packages/bandama/framework)
 
 Bandama is a PHP micro-framework to create Web Applications and Web APIs
+
 
 ## Installation
 
@@ -17,6 +18,7 @@ $ composer require bandama/framework "^1.0"
 ```
 
 This will install Bandama and all required dependencies. Bandama requires PHP 5.3.2 or newer.
+
 
 ## Usage
 
@@ -46,13 +48,31 @@ $ php -S localhost:8008
 Going to http://localhost:8008/hello/world will now display "Hello, world".
 
 
+## Components
+
+1. Router
+2. Session
+3. Cookie
+4. Controller
+5. Dependency Injection Container
+6. Database Connection
+7. Query Builder
+
+
 ## Tests
 
-To execute the test suite, you'll need phpunit.
+To execute the test suite, you'll need phpunit. If you are phpunit installed globally on your computer, type
 
 ```bash
-$ vendor/bin/phpunit
+$ phpunit
 ```
+
+Else, run
+
+```bash
+$ bin/phpunit
+```
+
 
 ## Credits
 

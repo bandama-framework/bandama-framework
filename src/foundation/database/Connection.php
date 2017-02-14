@@ -12,7 +12,8 @@ use Exception;
  * @package Bandama
  * @subpackage Foundation\Database
  * @author Jean-François YOBOUE <yoboue.kouamej@live.fr>
- * @version 1.0.0
+ * @version 1.0.1
+ * @since 1.0.1 Adding PDO attributes
  * @since 1.0.0 Class creation
  */
 class Connection {
@@ -48,6 +49,11 @@ class Connection {
 	 */
 	protected $password;
 
+	/**
+	 * @var array Define attributes for PDO object
+	 */
+	protected $attributes;
+
 
 	// Properties
 
@@ -56,7 +62,7 @@ class Connection {
 	 *
 	 * @return string
 	 */
-	public function getDriver(){
+	public function getDriver() {
 		return $this->driver;
 	}
 
@@ -65,7 +71,7 @@ class Connection {
 	 *
 	 * @return string
 	 */
-	public function getHost(){
+	public function getHost() {
 		return $this->host;
 	}
 
@@ -74,7 +80,7 @@ class Connection {
 	 *
 	 * @return int
 	 */
-	public function getPort(){
+	public function getPort() {
 		return $this->host;
 	}
 
@@ -83,7 +89,7 @@ class Connection {
 	 *
 	 * @return string
 	 */
-	public function getDatabase(){
+	public function getDatabase() {
 		return $this->database;
 	}
 
@@ -92,8 +98,17 @@ class Connection {
 	 *
 	 * @return string
 	 */
-	public function getUser(){
+	public function getUser() {
 		return $this->user;
+	}
+
+	/**
+	 * Get PDO objct attributes
+	 *
+	 * @return array
+	 */
+	public function getAttributes() {
+		return $this->attributes;
 	}
 
 	// Constructors
@@ -105,13 +120,18 @@ class Connection {
 	 *
 	 * @return void
 	 */
-	function __construct($parameters){
+	function __construct($parameters) {
 		$this->driver = $parameters["database_driver"];
 		$this->host = $parameters["database_host"];
 		$this->port = $parameters["database_port"];
 		$this->database = $parameters["database_name"];
 		$this->user = $parameters["database_user"];
 		$this->password = $parameters["database_password"];
+		if (isset($parameters['attributes'])) {
+			$this->attributes = $parameters['attributes'];
+		} else {
+			$this->attributes = array();
+		}
 	}
 
 	// Public Methods
@@ -124,17 +144,32 @@ class Connection {
 	 *
 	 * @return PDO
 	 */
-	public function getConnection(){
-		try{
+	public function getConnection() {
+		try {
+			$pdo = null;
+
 			switch($this->driver){
 				case "pdo_mysql":
-					return new PDO("mysql:host=".$this->host.";dbname=".$this->database.";charset=utf8", $this->user, $this->password, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION ));
+					$pdo = new PDO("mysql:host=".$this->host.";dbname=".$this->database.";charset=utf8", $this->user, $this->password);
+					break;
 				case "pdo_sqlserver":
-					return new PDO("sqlsrv:Server=".$this->host.";Database=".$this->database, $this->user, $this->password, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION ));
-			}
-		}catch(PDOException $e){
+					$pdo = new PDO("sqlsrv:Server=".$this->host.";Database=".$this->database, $this->user, $this->password);
+					break;
+				default:
+					throw new  Exception("Database driver not defined");
+				}
+
+				if (count($this->attributes) > 0) {
+					foreach ($this->attributes as $attribute) {
+						$pdo->setAttribute($attribute['name'], $attribute['value']);
+					}
+				}
+
+				return $pdo;
+
+		} catch (PDOException $e) {
 			throw new PDOException('Unable to connect to database, errorMessage = '.$e->getMessage());
-		}catch(Exception $e){
+		} catch (Exception $e) {
 			throw new Exception('Internal error, errorMessage = '.$e->getMessage());
 		}
 	}
@@ -142,7 +177,7 @@ class Connection {
 	/**
 	 * @see Connection::getConnection()
 	 */
-	public function open(){
+	public function open() {
 		return $this->getConnection();
 	}
 
