@@ -9,18 +9,29 @@ namespace Bandama\Foundation\Session;
  * @subpackage Foundation\Session
  * @see SessionInterface
  * @author Jean-François YOBOUE <yoboue.kouamej@live.fr>
- * @version 1.0.0
+ * @version 1.0.1
+ * @since 1.0.1 Adding optional param $name, $id to constructor, adding getName, getId methods
  * @since 1.0.0 Class creation
  */
 class Session implements SessionInterface {
     // Constructors
     /**
-     * Default constructor
+     * Constructor
+     *
+     * @param string $name Name of session
      *
      * @return void
      */
-    public function __construct() {
+    public function __construct($name = null, $id = null) {
         if (!session_id()) {
+            if ($name !== null) {
+                session_name($name);
+            }
+
+            if ($id !== null) {
+                session_id($id);
+            }
+
             session_start();
         }
     }
@@ -41,7 +52,7 @@ class Session implements SessionInterface {
     /**
      * @see SessionInterface::set
      */
-    public function set($key, $value) {
+    public function set($key, $value, $params = array()) {
         $_SESSION[$key] = $value;
     }
 
@@ -50,5 +61,24 @@ class Session implements SessionInterface {
      */
     public function delete($key) {
         unset($_SESSION[$key]);
+    }
+
+    // Public Methods
+    /**
+     * Return current name of session
+     *
+     * @return string
+     */
+    public function getName() {
+        return session_name();
+    }
+
+    /**
+     * Return current session id
+     *
+     * @return string
+     */
+    public function getId() {
+        return session_id();
     }
 }

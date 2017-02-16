@@ -13,6 +13,6 @@
     </filter>
 
     <php>
-        <ini name="date.timezone" value="UTC" />
+        <ini name="date.timezone" value="UTC" /> 
     </php>
 </phpunit>

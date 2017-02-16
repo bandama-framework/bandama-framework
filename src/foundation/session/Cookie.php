@@ -9,7 +9,8 @@ namespace Bandama\Foundation\Session;
  * @subpackage Foundation\Session
  * @see SessionInterface
  * @author Jean-François YOBOUE <yoboue.kouamej@live.fr>
- * @version 1.0.0
+ * @version 1.0.1
+ * @since 1.0.1 Implementing $params parameters of set method
  * @since 1.0.0 Class creation
  */
 class Cookie implements SessionInterface {
@@ -26,10 +27,36 @@ class Cookie implements SessionInterface {
     /**
      * Set variable to storage
      *
+     * @var string $key Key
+     * @var mixed $value Value
+     * @var array $params Parameters (expire, path, domain, secure, httponly)
+     *
      * @see SessionInterface::set
      */
-    public function set($key, $value) {
-        setcookie($key, serialize($value));
+    public function set($key, $value, $params = array()) {
+        $expire = 0;
+        $path = null;
+        $domain = null;
+        $secure = false;
+        $httponly = false;
+
+        if (isset($params['expire'])) {
+            $expire = $params['expire'];
+        }
+        if (isset($params['path'])) {
+            $path = $params['path'];
+        }
+        if (isset($params['domain'])) {
+            $domain = $params['domain'];
+        }
+        if (isset($params['secure'])) {
+            $secure = $params['secure'];
+        }
+        if (isset($params['httponly'])) {
+            $httponly = $params['httponly'];
+        }
+
+        setcookie($key, serialize($value), $expire, $path, $domain, $secure, bool $httponly);
     }
 
     /**
@@ -43,4 +70,4 @@ class Cookie implements SessionInterface {
             setcookie($key, '', time() - 3600);
         }
     }
-}   
+}

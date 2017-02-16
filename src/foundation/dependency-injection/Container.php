@@ -128,11 +128,13 @@ class Container {
 			return $this->factories[$key]();
 		}
 
-		//
+		// If the key is not in instances
 		if (!isset($this->instances[$key])) {
+			// If the key is in registry, instanciate the corresponding class and add it in instances
 			if (isset($this->registry[$key])) {
 				$this->instances[$key] = $this->registry[$key]();
 			} else {
+				// If the key is not in registry, instanciate the corresponding class and add it in instances
 				$className = str_replace(':', '\\', $key);
 				$reflectedClass = new ReflectionClass($className);
 
