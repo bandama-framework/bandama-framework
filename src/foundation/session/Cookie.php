@@ -56,7 +56,7 @@ class Cookie implements SessionInterface {
             $httponly = $params['httponly'];
         }
 
-        setcookie($key, serialize($value), $expire, $path, $domain, $secure, bool $httponly);
+        setcookie($key, serialize($value), $expire, $path, $domain, $secure, $httponly);
     }
 
     /**
