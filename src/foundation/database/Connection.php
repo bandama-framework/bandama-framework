@@ -170,8 +170,8 @@ class Connection {
 				}
 
 				if (count($this->attributes) > 0) {
-					foreach ($this->attributes as $attribute) {
-						$pdo->setAttribute($attribute['name'], $attribute['value']);
+					foreach ($this->attributes as $key => $value) {
+						$pdo->setAttribute($key, $value);
 					}
 				}
 
