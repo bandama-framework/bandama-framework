@@ -13,7 +13,7 @@ use Exception;
  * @subpackage Foundation\Database
  * @author Jean-François YOBOUE <yoboue.kouamej@live.fr>
  * @version 1.0.1
- * @since 1.0.1 Adding PDO attributes, support for Oracle, SQLite, PostgreSQL database
+ * @since 1.0.1 Adding PDO attributes, support for Oracle, SQLite, PostgreSQL database; adding field to store current PDO object, adding close method
  * @since 1.0.0 Class creation
  */
 class Connection {
@@ -54,9 +54,13 @@ class Connection {
 	 */
 	protected $attributes;
 
+	/**
+	 * @var \PDO PDO object
+	 */
+	 protected $pdo;
+
 
 	// Properties
-
 	/**
 	 * Get database connection driver
 	 *
@@ -111,8 +115,16 @@ class Connection {
 		return $this->attributes;
 	}
 
-	// Constructors
+	/**
+	 * Get PDO object
+	 *
+	 * @return \PDO
+	 */
+	public function getPDO() {
+		return $this->pdo;
+	}
 
+	// Constructors
 	/**
 	 * Constructor
 	 *
@@ -175,6 +187,8 @@ class Connection {
 					}
 				}
 
+				$this->pdo = $pdo;
+
 				return $pdo;
 
 		} catch (PDOException $e) {
@@ -196,5 +210,14 @@ class Connection {
 	 */
 	public function connect() {
 		return $this->getConnection();
+	}
+
+	/**
+	 * Close connection to database
+	 *
+	 * @return void
+	 */
+	public function close() {
+		$this->pdo = null;
 	}
 }
