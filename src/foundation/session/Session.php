@@ -10,7 +10,7 @@ namespace Bandama\Foundation\Session;
  * @see SessionInterface
  * @author Jean-François YOBOUE <yoboue.kouamej@live.fr>
  * @version 1.0.1
- * @since 1.0.1 Adding optional param $name, $id to constructor, adding getName, getId methods
+ * @since 1.0.1 Adding optional param $name, $id, session handler to constructor, adding getName, getId methods
  * @since 1.0.0 Class creation
  */
 class Session implements SessionInterface {
@@ -22,7 +22,7 @@ class Session implements SessionInterface {
      *
      * @return void
      */
-    public function __construct($name = null, $id = null) {
+    public function __construct($name = null, $id = null, \SessionHandlerInterface $handler = null) {
         if (!session_id()) {
             if ($name !== null) {
                 session_name($name);
@@ -30,6 +30,10 @@ class Session implements SessionInterface {
 
             if ($id !== null) {
                 session_id($id);
+            }
+
+            if ($handler !== null) {
+                session_set_save_handler($handler, true);
             }
 
             session_start();
