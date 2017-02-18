@@ -133,7 +133,10 @@ class App {
         });
 
         $container->set('session', function() {
-            return new Session();
+            $session = new Session();
+            $session->start();
+
+            return $session;
         });
 
         $container->set('router', function() {

@@ -73,6 +73,10 @@ Else, run
 $ bin/phpunit
 ```
 
+## Version history
+
+* 1.0.4
+    - Adding PDO Session Handler for relationnal database session management
 
 ## Credits
 
