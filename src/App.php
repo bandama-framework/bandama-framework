@@ -96,6 +96,10 @@ class App {
      * @return mixed
      */
     public function run() {
+        // Start session
+        $session = $this->get('session');
+        $session->start();
+
         // Route the request
         if (strcmp($this->mode, self::APP_MODE_DEV) == 0) {
             $this->get('router')->route($_SERVER['REQUEST_URI']);

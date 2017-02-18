@@ -188,9 +188,6 @@ class PDOSessionHandler implements \SessionHandlerInterface {
      * @see \SessionHandlerInterface::destroy
      */
     public function destroy($sessionId) {
-        echo '<pre>';
-        echo 'Destruction de la session - '.$sessionId;
-        echo '</pre>';
         $result = false;
         $db = $this->connection->open();
         $query = $db->prepare("DELETE FROM {$this->tableName} WHERE {$this->columnSessionId} = :session_id;");
@@ -204,8 +201,9 @@ class PDOSessionHandler implements \SessionHandlerInterface {
 
     /**
      * @see \SessionHandlerInterface::gc
+     *
      */
     public function gc($maxlifetime) {
-
+        return true;
     }
 }
