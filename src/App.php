@@ -96,6 +96,7 @@ class App {
      * @return mixed
      */
     public function run() {
+        // Route the request
         if (strcmp($this->mode, self::APP_MODE_DEV) == 0) {
             $this->get('router')->route($_SERVER['REQUEST_URI']);
         } else {
@@ -142,7 +143,7 @@ class App {
         $container->set('cookie', function() {
             return new Cookie();
         });
-        
+
         $container->set('flash', function() use ($container) {
             return new Flash($container->get('session'));
         });
