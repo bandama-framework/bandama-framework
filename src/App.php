@@ -15,7 +15,8 @@ use Bandama\Foundation\Session\Flash;
  *
  * @package Bandama
  * @author Jean-François YOBOUE <yoboue.kouamej@live.fr>
- * @version 1.0.0
+ * @version 1.0.1
+ * @since 1.0.1 Adding addService method
  * @since 1.0.0 Class creation
  */
 class App {
@@ -135,6 +136,19 @@ class App {
 	 */
     public function get($key) {
         return $this->container->get($key);
+    }
+
+    /**
+     * Add an instance of class in container with custom key
+     *
+     * @return void
+     */
+    public function addService($key, $callable) {
+        $container = $this->container;
+        $instance = Container::newInstance($callable);
+        $this->container->set($key, function() use ($instance) {
+            return $instance;
+        });
     }
 
 

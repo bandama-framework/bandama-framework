@@ -2,7 +2,6 @@
 
 [![Latest Stable Version](https://poser.pugx.org/bandama/framework/v/stable)](https://packagist.org/packages/bandama/framework)
 [![Build Status](https://travis-ci.org/jfyoboue/bandama-framework.svg?branch=master)](https://travis-ci.org/jfyoboue/bandama-framework)
-[![Coverage Status](https://coveralls.io/repos/github/jfyoboue/bandama-framework/badge.svg?branch=master)](https://coveralls.io/github/jfyoboue/bandama-framework)
 [![Total Downloads](https://poser.pugx.org/bandama/framework/downloads)](https://packagist.org/packages/bandama/framework)
 [![License](https://poser.pugx.org/bandama/framework/license)](https://packagist.org/packages/bandama/framework)
 
@@ -64,18 +63,21 @@ Going to http://localhost:8008/hello/world will now display "Hello, world".
 To execute the test suite, you'll need phpunit. If you are phpunit installed globally on your computer, type
 
 ```bash
-$ phpunit
+$ phpunit --stderr
 ```
 
 Else, run
 
 ```bash
-$ bin/phpunit
+$ bin/phpunit --stderr
 ```
 
 ## Version history
 
-* 1.0.4
+* 1.0.6
+    - Adding static method newInstance to container class
+    - Adding addService method to App class
+* 1.0.5
     - Adding PDO Session Handler for relationnal database session management
 
 ## Credits
