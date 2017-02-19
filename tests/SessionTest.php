@@ -32,6 +32,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testStart() {
+        self::$session->destroy();
         $this->assertEmpty(self::$session->getId());
         self::$session->start();
         $this->assertNotNull(self::$session->getId());
@@ -94,6 +95,7 @@ class SessionTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testStartWithArgs() {
+        self::$session->destroy();
         self::$session->start('hello');
         $this->assertEquals('hello', self::$session->getName());
         self::$session->destroy();
@@ -101,9 +103,5 @@ class SessionTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals('hello', self::$session->getName());
         $this->assertEquals('1234567890', self::$session->getId());
         self::$session->destroy();
-
-        $params = array(
-            ''
-        )
     }
 }
