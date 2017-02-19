@@ -14,16 +14,6 @@ namespace Bandama\Foundation\Session;
  * @since 1.0.0 Class creation
  */
 class Session implements SessionInterface {
-    // Constructors
-    /**
-     * Default constructor
-     *
-     * @return void
-     */
-    public function __construct() {
-    }
-
-
     // Overrides
     /**
      * @see SessionInterface::get
@@ -47,7 +37,7 @@ class Session implements SessionInterface {
      * @see SessionInterface::delete
      */
     public function delete($key) {
-        unset($_SESSION[$key]);
+        $_SESSION[$key] = null;
     }
 
     // Public Methods
