@@ -11,7 +11,8 @@ use \Exception;
  * @package Bandama
  * @subpackage Foundation\DependencyInjection
  * @author Jean-François YOBOUE <yoboue.kouamej@live.fr>
- * @version 1.0.0
+ * @version 1.0.1
+ * @since 1.0.1 Adding static method newInstance
  * @since 1.0.0 Class creation
  */
 class Container {
@@ -135,36 +136,46 @@ class Container {
 				$this->instances[$key] = $this->registry[$key]();
 			} else {
 				// If the key is not in registry, instanciate the corresponding class and add it in instances
-				$className = str_replace(':', '\\', $key);
-				$reflectedClass = new ReflectionClass($className);
-
-				if ($reflectedClass->isInstantiable()) {
-					$constructor = $reflectedClass->getConstructor();
-
-					if ($constructor) {
-						$parameters = $constructor->getParameters();
-						$constructorParameters = array();
-
-						foreach ($parameters as $parameter) {
-							if ($parameter->getClass()) {
-								$constructorParameters[] = $this->get($parameter->getClass()->getName());
-							} else {
-								$constructorParameters[] = $parameter->getDefaultValue();
-							}
-						}
-
-						$this->instances[$key] = $reflectedClass->newInstanceArgs($constructorParameters);
-					} else {
-						$this->instances[$key] = $reflectedClass->newInstance();
-					}
-
-				} else {
-					throw new Exception($key." is not instantiable Class");
-				}
+				$this->instances[$key] = self::newInstance($key);
 			}
 		}
 
 		return $this->instances[$key];
 	}
 
+	/**
+	 * An instance factory method
+	 *
+	 * @param string $class Full class name with used : as namespace separator
+	 *
+	 * @return mixed
+	 */
+	public static function newInstance($class) {
+		$className = str_replace(':', '\\', $class);
+		$reflectedClass = new ReflectionClass($className);
+
+		if ($reflectedClass->isInstantiable()) {
+			$constructor = $reflectedClass->getConstructor();
+
+			if ($constructor) {
+				$parameters = $constructor->getParameters();
+				$constructorParameters = array();
+
+				foreach ($parameters as $parameter) {
+					if ($parameter->getClass()) {
+						$constructorParameters[] = self::newInstance($parameter->getClass()->getName());
+					} else {
+						$constructorParameters[] = $parameter->getDefaultValue();
+					}
+				}
+
+				return $reflectedClass->newInstanceArgs($constructorParameters);
+			} else {
+				return $reflectedClass->newInstance();
+			}
+
+		} else {
+			throw new Exception($class." is not instantiable Class");
+		}
+	}
 }

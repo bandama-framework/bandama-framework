@@ -23,4 +23,14 @@ class AppTest extends \PHPUnit_Framework_TestCase {
         $this->assertNotNull(self::$app->get('flash'));
     }
 
+    /**
+     * @depends testInitialization
+     */
+    public function testAddService() {
+        self::$app->addService('fakeService', 'Bandama:Test:FakeService');
+        $service = self::$app->get('fakeService');
+        $this->assertNotNull($service);
+        $this->assertInstanceOf(\Bandama\Test\FakeService::class, $service);
+        $this->assertEquals('Hello world', $service->hello('world'));
+    }
 }
