@@ -13,7 +13,7 @@ use Exception;
  * @subpackage Foundation\Database
  * @author Jean-François YOBOUE <yoboue.kouamej@live.fr>
  * @version 1.0.1
- * @since 1.0.1 Adding PDO attributes
+ * @since 1.0.1 Adding PDO attributes, support for Oracle, SQLite, PostgreSQL database; adding field to store current PDO object, adding close method
  * @since 1.0.0 Class creation
  */
 class Connection {
@@ -54,9 +54,13 @@ class Connection {
 	 */
 	protected $attributes;
 
+	/**
+	 * @var \PDO PDO object
+	 */
+	 protected $pdo;
+
 
 	// Properties
-
 	/**
 	 * Get database connection driver
 	 *
@@ -111,8 +115,16 @@ class Connection {
 		return $this->attributes;
 	}
 
-	// Constructors
+	/**
+	 * Get PDO object
+	 *
+	 * @return \PDO
+	 */
+	public function getPDO() {
+		return $this->pdo;
+	}
 
+	// Constructors
 	/**
 	 * Constructor
 	 *
@@ -149,21 +161,33 @@ class Connection {
 			$pdo = null;
 
 			switch($this->driver){
-				case "pdo_mysql":
+				case "pdo_mysql": // MySQL Database
 					$pdo = new PDO("mysql:host=".$this->host.";dbname=".$this->database.";charset=utf8", $this->user, $this->password);
 					break;
-				case "pdo_sqlserver":
+				case "pdo_sqlserver": // SQL Server Database
 					$pdo = new PDO("sqlsrv:Server=".$this->host.";Database=".$this->database, $this->user, $this->password);
+					break;
+				case "pdo_sqlite": // SQLite Database
+				    $pdo = new PDO("sqlite:{$this->database}");
+					break;
+				case "pdo_pgsql": // PostgreSQL Database
+				    $pdo = new PDO("pgsql:dbname={$this->database};host={$this->host}", $this->user, $this->password);
+				    break;
+				case "pdo_oci": // Oracle Database
+					$tns = "oci:dbname=(DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP) (Host = {$this->host}) (Port = {$this->port}))) (CONNECT_DATA = (SERVICE_NAME = {$this->database})))";
+					$pdo = new PDO($tns, $this->user, $this->password);
 					break;
 				default:
 					throw new  Exception("Database driver not defined");
 				}
 
 				if (count($this->attributes) > 0) {
-					foreach ($this->attributes as $attribute) {
-						$pdo->setAttribute($attribute['name'], $attribute['value']);
+					foreach ($this->attributes as $key => $value) {
+						$pdo->setAttribute($key, $value);
 					}
 				}
+
+				$this->pdo = $pdo;
 
 				return $pdo;
 
@@ -186,5 +210,14 @@ class Connection {
 	 */
 	public function connect() {
 		return $this->getConnection();
+	}
+
+	/**
+	 * Close connection to database
+	 *
+	 * @return void
+	 */
+	public function close() {
+		$this->pdo = null;
 	}
 }

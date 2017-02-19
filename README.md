@@ -17,7 +17,7 @@ It's recommended that you use [Composer](https://getcomposer.org/) to install Ba
 $ composer require bandama/framework "^1.0"
 ```
 
-This will install Bandama and all required dependencies. Bandama requires PHP 5.3.2 or newer.
+This will install Bandama and all required dependencies. Bandama requires PHP 5.4 or newer.
 
 
 ## Usage
@@ -73,6 +73,10 @@ Else, run
 $ bin/phpunit
 ```
 
+## Version history
+
+* 1.0.4
+    - Adding PDO Session Handler for relationnal database session management
 
 ## Credits
 

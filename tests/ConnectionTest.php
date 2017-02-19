@@ -21,7 +21,7 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase {
             'database_password' => ''
         );
         $connection = new Connection($params);
-        $connection->getConnection();
+        $connection->open();
     }
 
     /**
@@ -37,7 +37,24 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase {
             'database_password' => ''
         );
         $connection = new Connection($params);
-        $connection->getConnection();
+        $connection->connect();
     }
 
+    public function testConnectToSQLite() {
+        $params = array(
+            'database_driver' => 'pdo_sqlite',
+            'database_host' => '',
+            'database_port' => '',
+            'database_name' => ':memory:',
+            'database_user' => '',
+            'database_password' => '',
+            'attributes' => array(
+                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
+            )
+        );
+
+        $connection = new Connection($params);
+        $db = $connection->getConnection();
+        $this->assertInstanceOf(\PDO::class, $db);
+    }
 }

@@ -76,9 +76,33 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
         $container->get('FakeController');
     }
 
-    public function testGetWithNotRegisteredElement() {
+    public function testGetWithNotRegisteredElementWithDefaultConstructor() {
         $container = new Container();
 
         $this->assertInstanceOf(FakeController::class, $container->get('Bandama:Test:FakeController'));
+    }
+
+    public function testGetWithNotRegisteredElementWithNoDefaultConstructor() {
+        $container = new Container();
+
+        $this->assertInstanceOf(FakeAddress::class, $container->get('Bandama:Test:FakePerson')->getAddress());
+    }
+
+    /**
+     * @expectedException Exception
+     */
+    public function testGetWithNotInstanciableClass() {
+        $container = new Container();
+
+        $container->get('Bandama:Test:FakeNotInstanciable');
+    }
+
+    public function testGetWithParametrizedConstructorClass() {
+        $container = new Container();
+
+        $obj = $container->get('Bandama:Test:FakeParametrizedConstructor');
+
+        $this->assertEquals(0, $obj->getId());
+        $this->assertEquals('', $obj->getName());
     }
 }

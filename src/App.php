@@ -58,6 +58,24 @@ class App {
         return $this->container;
     }
 
+    /**
+     * Return application execution mode
+     *
+     * @return string
+     */
+    public function getMode() {
+        return $this->mode;
+    }
+
+    /**
+     * Return path to application configuration file
+     *
+     * @return string
+     */
+    public function getConfigFile() {
+        return $this->configFile;
+    }
+
 
     // Constructors
     /**
@@ -82,7 +100,7 @@ class App {
      *
      * @return App
      */
-    public static function getInstance($configFile = null, $mode = self::PROD) {
+    public static function getInstance($configFile = null, $mode = self::APP_MODE_PROD) {
         if (is_null(self::$_instance)) {
             self::$_instance = new self($configFile, $mode);
         }
@@ -96,6 +114,11 @@ class App {
      * @return mixed
      */
     public function run() {
+        // Start session
+        $session = $this->get('session');
+        $session->start();
+
+        // Route the request
         if (strcmp($this->mode, self::APP_MODE_DEV) == 0) {
             $this->get('router')->route($_SERVER['REQUEST_URI']);
         } else {
@@ -132,7 +155,10 @@ class App {
         });
 
         $container->set('session', function() {
-            return new Session();
+            $session = new Session();
+            $session->start();
+
+            return $session;
         });
 
         $container->set('router', function() {
@@ -142,7 +168,7 @@ class App {
         $container->set('cookie', function() {
             return new Cookie();
         });
-        
+
         $container->set('flash', function() use ($container) {
             return new Flash($container->get('session'));
         });
