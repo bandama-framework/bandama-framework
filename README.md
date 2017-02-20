@@ -49,13 +49,14 @@ Going to http://localhost:8008/hello/world will now display "Hello, world".
 
 ## Components
 
-1. Router
-2. Session
-3. Cookie
-4. Controller
-5. Dependency Injection Container
-6. Database Connection
-7. Query Builder
+* Router
+* Session
+* PDO Session Handler
+* Cookie
+* Controller
+* Dependency Injection Container
+* Database Connection
+* Query Builder
 
 
 ## Tests
@@ -72,8 +73,10 @@ Else, run
 $ bin/phpunit --stderr
 ```
 
-## Version history
+## Change log
 
+* 1.0.7
+    - Bug fixed in render method of Controller class
 * 1.0.6
     - Adding static method newInstance to container class
     - Adding addService method to App class

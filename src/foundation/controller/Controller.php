@@ -8,8 +8,9 @@ namespace Bandama\Foundation\Controller;
  * @package Bandama
  * @subpackage Foundation\Controller
  * @author Jean-François YOBOUE <yoboue.kouamej@live.fr>
- * @version 1.0.1
- * @version 1.0.1 Adding view path field and extacting params parameter of render method into render method
+ * @version 1.0.2
+ * @since 1.0.2 Bug fixed in render method
+ * @since 1.0.1 Adding view path field and extacting params parameter of render method into render method
  * @since 1.0.0 Class creation
  */
 class Controller {
@@ -36,9 +37,13 @@ class Controller {
      * @return string
      */
     public function render($view, $params = array()) {
+        $viewPath = $this->viewPath;
+        $viewPath = rtrim($viewPath, '/').'/';
         extract($params);
-        if (is_file($this->viewPath.str_replace(':', '/', $view))) {
-            require_once($this->viewPath.str_replace(':', '/', $view));
+        if (is_file($view)) {
+            require_once($view);
+        } else if (is_file($viewPath.str_replace(':', '/', $view))) {
+            require_once($viewPath.str_replace(':', '/', $view));
         } else {
             echo $view;
         }
