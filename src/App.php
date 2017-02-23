@@ -40,7 +40,7 @@ class App {
     /**
      * @var string Base URI of application URLs
      */
-    protected $baseUri = '/';
+    protected $baseUri = '';
 
     /**
      * @var App Uniq instance of App class
@@ -132,7 +132,7 @@ class App {
             $uri = $_GET['url'];
         }
 
-        $uri = substr($uri, $this->baseUri);
+        $uri = substr($uri, strlen($this->baseUri));
 
         $this->get('router')->route($uri);
     }

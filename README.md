@@ -75,6 +75,10 @@ $ bin/phpunit --stderr
 
 ## Change log
 
+* 1.0.9
+    - Bug fixed in App class
+* 1.0.8
+    - Adding base URI Management in App class
 * 1.0.7
     - Bug fixed in render method of Controller class
 * 1.0.6
