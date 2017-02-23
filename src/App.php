@@ -38,6 +38,11 @@ class App {
     protected $container = null;
 
     /**
+     * @var string Base URI of application URLs
+     */
+    protected $baseUri = '/';
+
+    /**
      * @var App Uniq instance of App class
      */
     protected static $_instance;
@@ -120,11 +125,16 @@ class App {
         $session->start();
 
         // Route the request
+        $uri = '';
         if (strcmp($this->mode, self::APP_MODE_DEV) == 0) {
-            $this->get('router')->route($_SERVER['REQUEST_URI']);
+            $uri = $_SERVER['REQUEST_URI'];
         } else {
-            $this->get('router')->route($_GET['url']);
+            $uri = $_GET['url'];
         }
+
+        $uri = substr($uri, $this->baseUri);
+
+        $this->get('router')->route($uri);
     }
 
     /**
