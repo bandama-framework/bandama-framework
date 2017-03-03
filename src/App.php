@@ -87,6 +87,8 @@ class App {
     /**
      * Default constructor
      *
+     * Register configuration file and application mode, setup application
+     *
      * @param array $configFile Application configuration file
      *
      * @return void
@@ -94,6 +96,7 @@ class App {
     protected function __construct($configFile, $mode) {
         $this->configFile = $configFile;
         $this->mode = $mode;
+        $this->container = new Container();
         $this->setup();
     }
 
@@ -154,7 +157,6 @@ class App {
      * @return void
      */
     public function addService($key, $callable) {
-        $container = $this->container;
         $instance = Container::newInstance($callable);
         $this->container->set($key, function() use ($instance) {
             return $instance;
@@ -164,39 +166,82 @@ class App {
 
     // Private Methods
     /**
-     * Setup application settings
+     * Setup application following theses steps
+     * - Register configuration
+     * - Register router
+     * - Register session object
+     * - Register cookie object
+     * - Register session flash object
      *
      * @param array $settings Application settings
      *
      * @return void
      */
     protected function setup() {
-        $container = new Container();
-        $config = new Configuration($this->configFile);
+        $this->registerConfig();
+        $this->registerRouter();
+        $this->registerSession();
+        $this->registerCookie();
+        $this->registerFlash();
+    }
 
-        $container->set('config', function() use ($config) {
+    /**
+     * Create and add config in container
+     *
+     * @return void
+     */
+    protected function registerConfig() {
+        $config = new Configuration($this->configFile);
+        $this->container->set('config', function() use ($config) {
                 return $config;
         });
+    }
 
-        $container->set('session', function() {
+    /**
+     * Create and add router to container
+     *
+     * @return void
+     */
+    protected function registerRouter() {
+        $this->container->set('router', function() {
+            return new Router();
+        });
+    }
+
+    /**
+     * Create and add session to container
+     *
+     * @return void
+     */
+    protected function registerSession() {
+        $this->container->set('session', function() {
             $session = new Session();
             $session->start();
 
             return $session;
         });
+    }
 
-        $container->set('router', function() {
-            return new Router();
-        });
-
-        $container->set('cookie', function() {
+    /**
+     * Create and add cookie to container
+     *
+     * @return void
+     */
+    protected function registerCookie() {
+        $this->container->set('cookie', function() {
             return new Cookie();
         });
+    }
 
-        $container->set('flash', function() use ($container) {
+    /**
+     * Create and add session flash object to container
+     *
+     * @return void
+     */
+    protected function registerFlash() {
+        $container = $this->container;
+        $this->container->set('flash', function() use ($container) {
             return new Flash($container->get('session'));
         });
-
-        $this->container = $container;
     }
 }

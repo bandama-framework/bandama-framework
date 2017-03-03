@@ -75,6 +75,8 @@ $ bin/phpunit --stderr
 
 ## Change log
 
+* 1.0.10
+    - Improvement of App setup method
 * 1.0.9
     - Bug fixed in App class
 * 1.0.8
