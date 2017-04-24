@@ -31,40 +31,38 @@ class SessionTest extends \PHPUnit_Framework_TestCase {
         $this->assertInstanceOf('\\Bandama\\Foundation\\Session\\SessionInterface', self::$session);
     }
 
-    public function testStart() {
-        self::$session->destroy();
-        $this->assertEmpty(self::$session->getId());
-        self::$session->start();
-        $this->assertNotNull(self::$session->getId());
-    }
-
     /**
-     * @depends testStart
+     * @runInSeparateProcess
      */
     public function testGetIfVariableExists() {
+        self::$session->start();
+        self::$session->start();
         $_SESSION['hello'] = 'world';
         $this->assertEquals('world', self::$session->get('hello'));
     }
 
     /**
-     * @depends testStart
+     * @runInSeparateProcess
      */
     public function testGetIfVariableNotExists() {
+        self::$session->start();
         $this->assertNull(self::$session->get('toto'));
     }
 
     /**
-     * @depends testStart
+     * @runInSeparateProcess
      */
     public function testSet() {
+        self::$session->start();
         self::$session->set('city', 'Abidjan');
         $this->assertEquals('Abidjan', self::$session->get('city'));
     }
 
     /**
-     * @depends testStart
+     * @runInSeparateProcess
      */
     public function testDelete() {
+        self::$session->start();
         self::$session->set('city', 'Abidjan');
         $this->assertNotNull(self::$session->get('city'));
         self::$session->delete('city');
@@ -72,36 +70,18 @@ class SessionTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @depends testStart
+     * @runInSeparateProcess
      */
     public function testGetName() {
+        self::$session->start();
         $this->assertEquals('PHPSESSID', self::$session->getName());
     }
 
     /**
-     * @depends testStart
+     * @runInSeparateProcess
      */
     public function testGetId() {
+        self::$session->start();
         $this->assertNotEmpty(self::$session->getId());
-    }
-
-    /**
-     * @depends testStart
-     */
-    public function testDestroy() {
-        self::$session->set('city', 'Abidjan');
-        self::$session->destroy();
-        $this->assertEquals(0, count($_SESSION));
-    }
-
-    public function testStartWithArgs() {
-        self::$session->destroy();
-        self::$session->start('hello');
-        $this->assertEquals('hello', self::$session->getName());
-        self::$session->destroy();
-        self::$session->start('hello', '1234567890');
-        $this->assertEquals('hello', self::$session->getName());
-        $this->assertEquals('1234567890', self::$session->getId());
-        self::$session->destroy();
     }
 }

@@ -11,4 +11,4 @@ before_install:
     - composer dump-autoload
 
 script:
-    - bin/phpunit --stderr
+    - php bin/phpunit

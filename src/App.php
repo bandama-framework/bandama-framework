@@ -97,7 +97,6 @@ class App {
         $this->configFile = $configFile;
         $this->mode = $mode;
         $this->container = new Container();
-        $this->setup();
     }
 
 
@@ -111,7 +110,10 @@ class App {
      */
     public static function getInstance($configFile = null, $mode = self::APP_MODE_PROD) {
         if (is_null(self::$_instance)) {
+            // Create an instance
             self::$_instance = new self($configFile, $mode);
+            // Setup application
+            self::$_instance->setup();
         }
 
         return self::$_instance;
@@ -178,10 +180,15 @@ class App {
      * @return void
      */
     protected function setup() {
+        // Register application services
         $this->registerConfig();
+        // Register router component
         $this->registerRouter();
+        // Register session object
         $this->registerSession();
+        // Register cookie object
         $this->registerCookie();
+        // Register flash object
         $this->registerFlash();
     }
 

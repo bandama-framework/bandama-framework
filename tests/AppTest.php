@@ -10,7 +10,11 @@ class AppTest extends \PHPUnit_Framework_TestCase {
     protected static $app;
 
     // Tests
-    public function testInitialization() {
+    /**
+     * @runInSeparateProcess
+     */
+    public function testInitializationAndAddService() {
+        // Initialization Tests
         self::$app = App::getInstance();
 
         $this->assertNotNull(self::$app->getContainer());
@@ -21,12 +25,8 @@ class AppTest extends \PHPUnit_Framework_TestCase {
         $this->assertNotNull(self::$app->get('router'));
         $this->assertNotNull(self::$app->get('cookie'));
         $this->assertNotNull(self::$app->get('flash'));
-    }
 
-    /**
-     * @depends testInitialization
-     */
-    public function testAddService() {
+        // AddService Tests
         self::$app->addService('fakeService', 'Bandama:Test:FakeService');
         $service = self::$app->get('fakeService');
         $this->assertNotNull($service);
