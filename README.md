@@ -32,6 +32,10 @@ require(__DIR__.'/vendor/autoload.php');
 $app = Bandama\App::getInstance(null, Bandama\App::APP_MODE_DEV);
 $router = $app->get('router');
 
+$router->get('/', function() {
+    echo "<pre>Bandama Framework</pre>";
+});
+
 $router->get('/hello/:name', function($name) {
     echo "<pre> Hello, $name";
 });
@@ -43,6 +47,8 @@ You may quickly test this using the built-in PHP server:
 ```bash
 $ php -S localhost:8008
 ```
+
+Going to http://localhost:8008 will now display "Bandama Framework".
 
 Going to http://localhost:8008/hello/world will now display "Hello, world".
 
@@ -75,6 +81,8 @@ $ bin/phpunit --stderr
 
 ## Change log
 
+* 1.1.0
+    - Moving application setup method of App class from constructor to getInstance method
 * 1.0.10
     - Improvement of App setup method
 * 1.0.9

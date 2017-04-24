@@ -43,11 +43,6 @@ class PDOSessionHandler implements \SessionHandlerInterface {
     protected $columnSessionLifetime = 'session_lifetime';
 
     /**
-     * @var string Name of user id column
-     */
-    protected $columnUserId = 'user_id';
-
-    /**
      * @var string Name of created at column
      */
     protected $columnCreatedAt = 'created_at';
@@ -89,10 +84,6 @@ class PDOSessionHandler implements \SessionHandlerInterface {
 
         if (isset($params['col_session_lifetime'])) {
             $this->columnSessionLifetime = $params['col_session_lifetime'];
-        }
-
-        if (isset($params['col_user_id'])) {
-            $this->columnUserId = $params['col_user_id'];
         }
 
         if (isset($params['col_created_at'])) {
