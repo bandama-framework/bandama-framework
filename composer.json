@@ -22,6 +22,7 @@
     },
     "autoload": {
         "psr-4": {
+            "Bandama\\": "src/",
             "Bandama\\Foundation\\Database\\": "src/foundation/database/",
             "Bandama\\Foundation\\Controller\\": "src/foundation/controller/",
             "Bandama\\Foundation\\DependencyInjection\\": "src/foundation/dependency-injection/",
