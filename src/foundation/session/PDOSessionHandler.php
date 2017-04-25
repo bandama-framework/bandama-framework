@@ -149,22 +149,20 @@ class PDOSessionHandler implements \SessionHandlerInterface {
         $db = $this->connection->open();
 
         if ($this->isNewRecord == true) {
-            $query = $db->prepare("INSERT INTO {$this->tableName}({$this->columnSessionId}, {$this->columnSessionData}, {$this->columnSessionLifetime}, {$this->columnUserId}, {$this->columnCreatedAt}, {$this->columnUpdatedAt}) VALUES(:session_id, :session_data, :session_lifetime, :user_id, :created_at, :updated_at);");
+            $query = $db->prepare("INSERT INTO {$this->tableName}({$this->columnSessionId}, {$this->columnSessionData}, {$this->columnSessionLifetime}, {$this->columnCreatedAt}, {$this->columnUpdatedAt}) VALUES(:session_id, :session_data, :session_lifetime, :created_at, :updated_at);");
             $result = $query->execute(array(
                 'session_id' => $sessionId,
                 'session_data' => $sessionData,
                 'session_lifetime' => 1440,
-                'user_id' => null,
                 'created_at' => time(),
                 'updated_at' => time()
             ));
         } else {
-            $query = $db->prepare("UPDATE {$this->tableName} SET {$this->columnSessionData} = :session_data, {$this->columnSessionLifetime} = :session_lifetime, {$this->columnUserId} = :user_id, {$this->columnUpdatedAt} = :updated_at WHERE {$this->columnSessionId} = :session_id;");
+            $query = $db->prepare("UPDATE {$this->tableName} SET {$this->columnSessionData} = :session_data, {$this->columnSessionLifetime} = :session_lifetime, {$this->columnUpdatedAt} = :updated_at WHERE {$this->columnSessionId} = :session_id;");
 
             $result = $query->execute(array(
                 'session_data' => $sessionData,
                 'session_lifetime' => 1440,
-                'user_id' => null,
                 'updated_at' => time(),
                 'session_id' => $sessionId
             ));

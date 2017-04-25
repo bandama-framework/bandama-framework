@@ -70,17 +70,19 @@ Going to http://localhost:8008/hello/world will now display "Hello, world".
 To execute the test suite, you'll need phpunit. If you are phpunit installed globally on your computer, type
 
 ```bash
-$ phpunit --stderr
+$ phpunit
 ```
 
 Else, run
 
 ```bash
-$ bin/phpunit --stderr
+$ php bin/phpunit
 ```
 
 ## Change log
 
+* 1.1.1
+    - Removing user_id column in sessions table
 * 1.1.0
     - Moving application setup method of App class from constructor to getInstance method
 * 1.0.10
