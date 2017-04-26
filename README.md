@@ -13,7 +13,7 @@ Bandama is a PHP micro-framework to create Web Applications and Web APIs
 It's recommended that you use [Composer](https://getcomposer.org/) to install Bandama.
 
 ```bash
-$ composer require bandama/framework "^1.0"
+$ composer require bandama/framework "1.1.*"
 ```
 
 This will install Bandama and all required dependencies. Bandama requires PHP 5.4 or newer.
