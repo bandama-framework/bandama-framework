@@ -21,7 +21,7 @@ This will install Bandama and all required dependencies. Bandama requires PHP 5.
 
 ## Usage
 
-Create an index.php file with the following contents:
+There is an index.php file in root directory with the following contents:
 
 ```php
 <?php

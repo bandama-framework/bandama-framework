@@ -3,7 +3,7 @@
 namespace Bandama\Foundation\Database;
 
 /**
- * Query Builder class, implements Fluent design pattern
+ * Query Builder class, select, where and from methods implement Fluent design pattern
  *
  * @package Bandama
  * @subpackage Foundation\Database
@@ -32,7 +32,7 @@ class QueryBuilder {
 
     // Public methods
     /**
-     * Create select statement
+     * Create select statement, implements Fluent design pattern
      *
      *  @return QueryBuilder
      */
@@ -43,7 +43,7 @@ class QueryBuilder {
     }
 
     /**
-     * Create where statement
+     * Create where statement, implements Fluent design pattern
      *
      * @return QueryBuilder
      */
@@ -51,12 +51,12 @@ class QueryBuilder {
         foreach(func_get_args() as $arg) {
             $this->conditions[] = $arg;
         }
-        
+
         return $this;
     }
 
     /**
-     * Create from statement
+     * Create from statement, implements Fluent design pattern
      *
      * @param string $table Table name
      * @param string $alias Table alias
@@ -69,7 +69,7 @@ class QueryBuilder {
         } else {
             $this->from[] = "$table AS $alias";
         }
-        
+
         return $this;
     }
 
@@ -85,7 +85,7 @@ class QueryBuilder {
             $query = $query.' WHERE '.implode(' AND ', $this->conditions);
         }
         $query = rtrim($query).';';
-        
+
         return $query;
     }
 
