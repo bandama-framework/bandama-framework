@@ -15,7 +15,8 @@ use Bandama\Foundation\Session\Flash;
  *
  * @package Bandama
  * @author Jean-François YOBOUE <yoboue.kouamej@live.fr>
- * @version 1.0.1
+ * @version 1.0.2
+ * @since 1.0.2 Making getInstance method inheritable
  * @since 1.0.1 Adding addService method
  * @since 1.0.0 Class creation
  */
@@ -45,7 +46,7 @@ class App {
     /**
      * @var App Uniq instance of App class
      */
-    protected static $_instance;
+    protected static $_instances = array();
 
 
     // Constants
@@ -101,6 +102,10 @@ class App {
 
 
     // Public Methods
+    public final function __clone() {
+        throw new \Exception('Cloning is not allowed');
+    }
+
     /**
      * Initialize and return App uniq instance
      *
@@ -109,14 +114,15 @@ class App {
      * @return App
      */
     public static function getInstance($configFile = null, $mode = self::APP_MODE_PROD) {
-        if (is_null(self::$_instance)) {
+        $c = get_called_class();
+        if (!isset(self::$_instances[$c])) {
             // Create an instance
-            self::$_instance = new self($configFile, $mode);
+            self::$_instances[$c] = new $c($configFile, $mode);
             // Setup application
-            self::$_instance->setup();
+            self::$_instances[$c]->setup();
         }
 
-        return self::$_instance;
+        return self::$_instances[$c];
     }
 
     /**
@@ -168,7 +174,7 @@ class App {
 
     // Private Methods
     /**
-     * Setup application following theses steps
+     * Setup application following theses steps (implements Template method design pattern)
      * - Register configuration
      * - Register router
      * - Register session object

@@ -21,7 +21,7 @@ This will install Bandama and all required dependencies. Bandama requires PHP 5.
 
 ## Usage
 
-Create an index.php file with the following contents:
+There is an index.php file in root directory with the following contents:
 
 ```php
 <?php
@@ -81,6 +81,10 @@ $ php bin/phpunit
 
 ## Change log
 
+* 1.1.2
+    - Making getInstance method of App class inheritable
+    - Adding test index.php in root directory
+    - Remove index.php entry in .gitignore file
 * 1.1.1
     - Removing user_id column in sessions table
 * 1.1.0
