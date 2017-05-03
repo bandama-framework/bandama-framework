@@ -81,6 +81,10 @@ $ php bin/phpunit
 
 ## Change log
 
+* 1.1.2
+    - Making getInstance method of App class inheritable
+    - Adding test index.php in root directory
+    - Remove index.php entry in .gitignore file
 * 1.1.1
     - Removing user_id column in sessions table
 * 1.1.0
