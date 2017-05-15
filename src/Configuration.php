@@ -8,7 +8,8 @@ namespace Bandama;
  *
  * @package Bandama
  * @author Jean-François YOBOUE <yoboue.kouamej@live.fr>
- * @version 1.0.1
+ * @version 1.0.2
+ * @since 1.0.2 Setting default value of $configFile for constructor
  * @since 1.0.1 Adding getters for properties
  * @since 1.0.0 Class creation
  */
@@ -37,7 +38,7 @@ class Configuration {
      *
      * @return void
      */
-    public function __construct($configFile) {
+    public function __construct($configFile = null) {
         if ($configFile != null && !empty($configFile)) {
             $this->settings = require($configFile);
         }
