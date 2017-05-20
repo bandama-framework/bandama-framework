@@ -8,7 +8,8 @@ namespace Bandama\Foundation\Router;
  * @package Bandama
  * @subpackage Foundation\Router
  * @author Jean-François YOBOUE <yoboue.kouamej@live.fr>
- * @version 1.0.0
+ * @version 1.0.2
+ * @since 1.0.2 Adding getHttpMethod() method
  * @since 1.0.1 Adding getters for fields
  * @since 1.0.0 Class creation
  */
@@ -98,11 +99,11 @@ class Router {
 	 * @return mixed
 	 */
 	public function route($url) {
-		if (!isset($this->routes[$_SERVER['REQUEST_METHOD']])) {
+		if (!isset($this->routes[$this->getHttpMethod()])) {
 			throw new RouterException("REQUEST_METHOD does not exist : url = $url");
 		}
 
-		foreach ($this->routes[$_SERVER['REQUEST_METHOD']] as $route) {
+		foreach ($this->routes[$this->getHttpMethod()] as $route) {
 			$matches = $route->match($url);
 
 			if (is_array($matches)) {
@@ -159,4 +160,12 @@ class Router {
 		return $route;
 	}
 
+	/**
+	 * Return the HTTP Request Method
+	 *
+	 * @return string
+	 */
+	private function getHttpMethod() {
+		return $_SERVER['REQUEST_METHOD'];
+	}
 }
