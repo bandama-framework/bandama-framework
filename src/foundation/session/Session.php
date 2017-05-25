@@ -10,7 +10,7 @@ namespace Bandama\Foundation\Session;
  * @see SessionInterface
  * @author Jean-François YOBOUE <yoboue.kouamej@live.fr>
  * @version 1.0.2
- * @since 1.0.2 Refactoring code and adding setName, setId, setHandler, startSession and destroySession methods
+ * @since 1.0.2 Refactoring code and adding setName, setId, setHandler, startSession, started and destroySession methods
  * @since 1.0.1 Adding getName, getId, start, destroy methods
  * @since 1.0.0 Class creation
  */
@@ -67,7 +67,7 @@ class Session implements SessionInterface {
      * @param string $id Session id
      * @param \SessionHandlerInterface Session handler
      *
-     * @return void
+     * @return bool
      */
     public function start($name = null, $id = null, \SessionHandlerInterface $handler = null) {
         if (!$this->getId()) {
@@ -83,7 +83,7 @@ class Session implements SessionInterface {
                 $this->setHandler($handler);
             }
 
-            $this->startSession();
+            return $this->startSession();
         }
     }
 
@@ -92,8 +92,8 @@ class Session implements SessionInterface {
      *
      * @return bool
      */
-    public function stared() {
-        $id = getId();
+    public function started() {
+        $id = $this->getId();
 
         return $id != null && !empty($id);
     }
@@ -154,10 +154,10 @@ class Session implements SessionInterface {
     /**
      * Start new session
      *
-     * @return void
+     * @return bool
      */
     private function startSession() {
-        session_start();
+        return session_start();
     }
 
     /**
