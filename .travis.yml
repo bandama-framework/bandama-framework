@@ -1,6 +1,7 @@
 language: php
 
 php:
+    - '5.3.2'
     - '5.5'
     - '5.6'
     - '7.0'
@@ -11,4 +12,4 @@ before_install:
     - composer dump-autoload
 
 script:
-    - php vendor/bin/kahlan --reporter=verbose --coverage=4 
+    - php vendor/bin/kahlan --reporter=verbose --coverage=4
