@@ -5,11 +5,11 @@ namespace Bandama\Test;
 class FakeController extends \Bandama\Foundation\Controller\Controller {
 
     public function indexAction() {
-        return 'home';
+        echo 'Hello world';
     }
 
     public function helloAction($name) {
-        return "Hello $name";
+        echo "Hello $name";
     }
 
 }

@@ -10,14 +10,15 @@
         "role": "Developer"
     }],
     "require-dev": {
-        "php": ">=5.4"
+        "php": ">=5.4",
+        "kahlan/kahlan": "^3.1"
     },
     "require": {
         "php": ">=5.4"
     },
     "autoload-dev": {
         "psr-4": {
-            "Bandama\\Test\\": "tests/"
+            "Bandama\\Test\\": ["spec/services/", "spec/controllers/", "spec/beans/"]
         }
     },
     "autoload": {
@@ -27,7 +28,8 @@
             "Bandama\\Foundation\\Controller\\": "src/foundation/controller/",
             "Bandama\\Foundation\\DependencyInjection\\": "src/foundation/dependency-injection/",
             "Bandama\\Foundation\\Router\\": "src/foundation/router/",
-            "Bandama\\Foundation\\Session\\": "src/foundation/session/"
+            "Bandama\\Foundation\\Session\\": "src/foundation/session/",
+            "Bandama\\Foundation\\Translation\\": "src/foundation/translation/"
         }
     }
 }
