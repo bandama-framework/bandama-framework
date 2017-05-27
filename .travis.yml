@@ -11,4 +11,4 @@ before_install:
     - composer dump-autoload
 
 script:
-    - php bin/phpunit
+    - php vendor/bin/kahlan --reporter=verbose --coverage=4 
