@@ -1,8 +1,6 @@
 <?php
 
 use \Bandama\App;
-use \Bandama\Test;
-
 
 describe(App::class, function() {
 
