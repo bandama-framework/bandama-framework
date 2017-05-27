@@ -8,6 +8,7 @@ use Bandama\Foundation\Database\Connection;
 use Bandama\Foundation\Session\Session;
 use Bandama\Foundation\Session\Cookie;
 use Bandama\Foundation\Session\Flash;
+use Bandama\Foundation\Translation\Translator;
 
 
 /**
@@ -180,6 +181,7 @@ class App {
      * - Register session object
      * - Register cookie object
      * - Register session flash object
+     *- Register translator
      *
      * @param array $settings Application settings
      *
@@ -196,6 +198,8 @@ class App {
         $this->registerCookie();
         // Register flash object
         $this->registerFlash();
+        // Register translator component
+        $this->registerTranslator();
     }
 
     /**
@@ -255,6 +259,17 @@ class App {
         $container = $this->container;
         $this->container->set('flash', function() use ($container) {
             return new Flash($container->get('session'));
+        });
+    }
+
+    /**
+     * Crate an empty translator component
+     *
+     * @return void
+     */
+    protected function registerTranslator() {
+        $this->container->set('translator', function() {
+            return new Translator();
         });
     }
 }
