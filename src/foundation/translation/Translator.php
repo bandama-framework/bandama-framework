@@ -33,7 +33,8 @@ class Translator {
      *
      * @return void
      */
-    public function __construct(...$files) {
+    public function __construct() {
+        $files = func_get_args();
         foreach($files as $file) {
             $this->addFile($file);
         }
