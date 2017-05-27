@@ -10,11 +10,11 @@
         "role": "Developer"
     }],
     "require-dev": {
-        "php": ">=5.4",
+        "php": ">=5.5",
         "kahlan/kahlan": "^3.1"
     },
     "require": {
-        "php": ">=5.4"
+        "php": ">=5.5"
     },
     "autoload-dev": {
         "psr-4": {
