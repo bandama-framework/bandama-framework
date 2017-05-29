@@ -91,6 +91,35 @@ describe(Router::class, function() {
         });
     });
 
+    describe('::patch()', function() {
+        it('add patch route without name', function() {
+            $router = new Router();
+
+            expect($router->getRoutes())->toBeEmpty();
+
+            $router->patch('/', function() {});
+            $router->patch('/hello/:name', function() {});
+
+            expect($router->getRoutes())->toContainKey('PATCH');
+            expect($router->getRoutes()['PATCH'])->toHaveLength(2);
+        });
+
+        it('add patch route with name', function() {
+            $router = new Router();
+
+            expect($router->getRoutes())->toBeEmpty();
+
+            $router->patch('/', function() {}, 'home');
+            $router->patch('/hello/:name', function() {}, 'hello');
+
+            expect($router->getRoutes())->toContainKey('PATCH');
+            expect($router->getRoutes()['PATCH'])->toHaveLength(2);
+            expect($router->getNamedRoutes())->toContainKey('home');
+            expect($router->getNamedRoutes())->toContainKey('hello');
+            expect($router->getNamedRoutes())->toHaveLength(2);
+        });
+    });
+
     describe('::delete()', function() {
         it('add delete route without name', function() {
             $router = new Router();
