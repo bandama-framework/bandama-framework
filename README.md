@@ -1,7 +1,7 @@
 # Bandama Framework
 
 [![Latest Stable Version](https://poser.pugx.org/bandama/framework/v/stable)](https://packagist.org/packages/bandama/framework)
-[![Build Status](https://travis-ci.org/jfyoboue/bandama-framework.svg?branch=master)](https://travis-ci.org/jfyoboue/bandama-framework)
+[![Build Status](https://travis-ci.org/bandama-framework/bandama-framework.svg?branch=master)](https://travis-ci.org/bandama-framework/bandama-framework)
 [![Total Downloads](https://poser.pugx.org/bandama/framework/downloads)](https://packagist.org/packages/bandama/framework)
 [![License](https://poser.pugx.org/bandama/framework/license)](https://packagist.org/packages/bandama/framework)
 
@@ -10,13 +10,15 @@ Bandama is a PHP micro-framework to create Web Applications and Web APIs
 
 ## Installation
 
-It's recommended that you use [Composer](https://getcomposer.org/) to install Bandama.
+It's recommended that you use [Composer](https://getcomposer.org/) to install Bandama Framework.
 
 ```bash
-$ composer require bandama/framework "1.1.*"
+$ composer require bandama/framework "1.2.*"
 ```
 
-This will install Bandama and all required dependencies. Bandama requires PHP 5.5 or newer.
+This will install Bandama Framework and all required dependencies. Bandama Framework requires PHP 5.5 or newer.
+
+You can also install Bandama Framework by [downloading it](https://github.com/bandama-framework/bandama-framework/archive/master.zip)
 
 
 ## Usage
@@ -63,24 +65,22 @@ Going to http://localhost:8008/hello/world will now display "Hello, world".
 * Dependency Injection Container
 * Database Connection
 * Query Builder
+* Translator
 
 
 ## Tests
 
-To execute the test suite, you'll need phpunit. If you are phpunit installed globally on your computer, type
+Unit tests use [Kahlan](https://github.com/kahlan/kahlan). To execute the tests, type
 
 ```bash
-$ phpunit
-```
-
-Else, run
-
-```bash
-$ php bin/phpunit
+$ php vendor/bin/kahlan --reporter=verbose --coverage=4
 ```
 
 ## Change log
 
+* 1.2.0
+    - Adding translator component
+    - Using [Kahlan](https://github.com/kahlan/kahlan) for unit tests
 * 1.1.2
     - Making getInstance method of App class inheritable
     - Adding test index.php in root directory
