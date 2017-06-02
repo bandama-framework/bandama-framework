@@ -8,7 +8,9 @@ namespace Bandama\Foundation\Router;
  * @package Bandama
  * @subpackage Foundation\Router
  * @author Jean-François YOBOUE <yoboue.kouamej@live.fr>
- * @version 1.0.0
+ * @version 1.0.3
+ * @since 1.0.3 Using constants for HTTP method and adding patch method for HTTP PATCH method
+ * @since 1.0.2 Adding getHttpMethod() method
  * @since 1.0.1 Adding getters for fields
  * @since 1.0.0 Class creation
  */
@@ -23,6 +25,33 @@ class Router {
 	 * @var array Collection of named routes
 	 */
 	private $namedRoutes = array();
+
+
+	// Constants
+	/**
+	 * @var string
+	 */
+	const HTTP_METHOD_GET = 'GET';
+
+	/**
+	 * @var string
+	 */
+	const HTTP_METHOD_POST = 'POST';
+
+	/**
+	 * @var string
+	 */
+	const HTTP_METHOD_PUT = 'PUT';
+
+	/**
+	 * @var string
+	 */
+	const HTTP_METHOD_PATCH = 'PATCH';
+
+	/**
+	 * @var string
+	 */
+	const HTTP_METHOD_DELETE = 'DELETE';
 
 
 	// Properties
@@ -58,7 +87,7 @@ class Router {
 	 * @see Router::add
 	 */
 	public function get($path, $callable, $name = null) {
-		return $this->add($path, $callable, $name, 'GET');
+		return $this->add($path, $callable, $name, self::HTTP_METHOD_GET);
 	}
 
 	/**
@@ -67,7 +96,7 @@ class Router {
 	 * @see Router::add
 	 */
 	public function post($path, $callable, $name = null) {
-		return $this->add($path, $callable, $name, 'POST');
+		return $this->add($path, $callable, $name, self::HTTP_METHOD_POST);
 	}
 
 	/**
@@ -76,7 +105,16 @@ class Router {
 	 * @see Router::add
 	 */
 	public function put($path, $callable, $name = null) {
-		return $this->add($path, $callable, $name, 'PUT');
+		return $this->add($path, $callable, $name, self::HTTP_METHOD_PUT);
+	}
+
+	/**
+	 * Add HTTP PATCH method route
+	 *
+	 * @see Router::add
+	 */
+	public function patch($path, $callable, $name = null) {
+		return $this->add($path, $callable, $name, self::HTTP_METHOD_PATCH);
 	}
 
 	/**
@@ -85,7 +123,7 @@ class Router {
 	 * @see Router::add
 	 */
 	public function delete($path, $callable, $name = null) {
-		return $this->add($path, $callable, $name, 'DELETE');
+		return $this->add($path, $callable, $name, self::HTTP_METHOD_DELETE);
 	}
 
 	/**
@@ -98,11 +136,11 @@ class Router {
 	 * @return mixed
 	 */
 	public function route($url) {
-		if (!isset($this->routes[$_SERVER['REQUEST_METHOD']])) {
+		if (!isset($this->routes[$this->getHttpMethod()])) {
 			throw new RouterException("REQUEST_METHOD does not exist : url = $url");
 		}
 
-		foreach ($this->routes[$_SERVER['REQUEST_METHOD']] as $route) {
+		foreach ($this->routes[$this->getHttpMethod()] as $route) {
 			$matches = $route->match($url);
 
 			if (is_array($matches)) {
@@ -159,4 +197,12 @@ class Router {
 		return $route;
 	}
 
+	/**
+	 * Return the HTTP Request Method
+	 *
+	 * @return string
+	 */
+	private function getHttpMethod() {
+		return $_SERVER['REQUEST_METHOD'];
+	}
 }

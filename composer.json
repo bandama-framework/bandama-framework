@@ -3,21 +3,22 @@
     "description": "Bandama is a microframework for PHP application",
     "type": "library",
     "license": "MIT",
-    "version": "1.1.2",
+    "version": "1.2.0",
     "authors": [{
         "name": "Jean-François YOBOUE",
         "email": "yoboue.kouamej@live.fr",
         "role": "Developer"
     }],
     "require-dev": {
-        "php": ">=5.4"
+        "php": ">=5.5",
+        "kahlan/kahlan": "^3.1"
     },
     "require": {
-        "php": ">=5.4"
+        "php": ">=5.5"
     },
     "autoload-dev": {
         "psr-4": {
-            "Bandama\\Test\\": "tests/"
+            "Bandama\\Test\\": ["spec/services/", "spec/controllers/", "spec/beans/"]
         }
     },
     "autoload": {
@@ -27,7 +28,8 @@
             "Bandama\\Foundation\\Controller\\": "src/foundation/controller/",
             "Bandama\\Foundation\\DependencyInjection\\": "src/foundation/dependency-injection/",
             "Bandama\\Foundation\\Router\\": "src/foundation/router/",
-            "Bandama\\Foundation\\Session\\": "src/foundation/session/"
+            "Bandama\\Foundation\\Session\\": "src/foundation/session/",
+            "Bandama\\Foundation\\Translation\\": "src/foundation/translation/"
         }
     }
 }

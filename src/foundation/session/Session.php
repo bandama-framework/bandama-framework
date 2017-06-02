@@ -9,7 +9,8 @@ namespace Bandama\Foundation\Session;
  * @subpackage Foundation\Session
  * @see SessionInterface
  * @author Jean-François YOBOUE <yoboue.kouamej@live.fr>
- * @version 1.0.1
+ * @version 1.0.2
+ * @since 1.0.2 Refactoring code and adding setName, setId, setHandler, startSession, started and destroySession methods
  * @since 1.0.1 Adding getName, getId, start, destroy methods
  * @since 1.0.0 Class creation
  */
@@ -66,24 +67,35 @@ class Session implements SessionInterface {
      * @param string $id Session id
      * @param \SessionHandlerInterface Session handler
      *
-     * @return void
+     * @return bool
      */
     public function start($name = null, $id = null, \SessionHandlerInterface $handler = null) {
-        if (!session_id()) {
+        if (!$this->getId()) {
             if ($name !== null) {
-                session_name($name);
+                $this->setName($name);
             }
 
             if ($id !== null) {
-                session_id($id);
+                $this->setId($id);
             }
 
             if ($handler !== null) {
-                session_set_save_handler($handler, true);
+                $this->setHandler($handler);
             }
 
-            session_start();
+            return $this->startSession();
         }
+    }
+
+    /**
+     * Check if the session is started for current user
+     *
+     * @return bool
+     */
+    public function started() {
+        $id = $this->getId();
+
+        return $id != null && !empty($id);
     }
 
     /**
@@ -92,21 +104,68 @@ class Session implements SessionInterface {
      * @return void
      */
     public function destroy() {
-        if (session_id()) {
+        if ($this->getId()) {
             // Clear all session variables
             $_SESSION = array();
 
             // Delete session cookie
             if (ini_get("session.use_cookies")) {
                 $params = session_get_cookie_params();
-                setcookie(session_name(), '', time() - 42000,
+                setcookie($this->getName(), '', time() - 42000,
                     $params["path"], $params["domain"],
                     $params["secure"], $params["httponly"]
                 );
             }
 
             // Destroy session
-            session_destroy();
+            $this->destroySession();
         }
+    }
+
+
+    // Private Methods
+    /**
+     * Define new session name and return old session name
+     *
+     * @return string
+     */
+    private function setName($name) {
+        return session_name($name);
+    }
+
+    /**
+     * Define session id
+     *
+     * @return void
+     */
+    private function setId($id) {
+        session_id($id);
+    }
+
+    /**
+     * Register session handler
+     *
+     * @return void
+     */
+    private function setHandler(\SessionHandlerInterface $handler) {
+        session_set_save_handler($handler, true);
+    }
+
+    /**
+     * Start new session
+     *
+     * @return bool
+     */
+    private function startSession() {
+        return session_start();
+    }
+
+    /**
+     * Destroy current session
+     *
+     * @return bool
+     */
+    private function destroySession() {
+        return session_destroy();
     }
 }

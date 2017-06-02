@@ -7,7 +7,7 @@ class FakeControllerWithViewPath extends \Bandama\Foundation\Controller\Controll
     public function __construct() {
         parent::__construct();
 
-        $this->viewPath = __DIR__.'/views';
+        $this->viewPath = __DIR__.'/../views';
     }
 
     public function indexAction() {
