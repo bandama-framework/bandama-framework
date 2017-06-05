@@ -16,7 +16,8 @@ use Bandama\Foundation\Translation\Translator;
  *
  * @package Bandama
  * @author Jean-François YOBOUE <yoboue.kouamej@live.fr>
- * @version 1.0.2
+ * @version 1.0.3
+ * @since 1.0.3 Adding registerComponents method
  * @since 1.0.2 Making getInstance method inheritable
  * @since 1.0.1 Adding addService method
  * @since 1.0.0 Class creation
@@ -200,6 +201,8 @@ class App {
         $this->registerFlash();
         // Register translator component
         $this->registerTranslator();
+        // Register other components
+        $this->registerComponents();
     }
 
     /**
@@ -271,5 +274,14 @@ class App {
         $this->container->set('translator', function() {
             return new Translator();
         });
+    }
+
+    /**
+    * Create and register custom components
+    *
+    * @return void
+    */
+    protected function registerComponents() {
+
     }
 }
