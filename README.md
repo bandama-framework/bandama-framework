@@ -78,6 +78,8 @@ $ php vendor/bin/kahlan --reporter=verbose --coverage=4
 
 ## Change log
 
+* 1.2.1
+    - Adding registerComponents method to application bootstrap methods (setup method)
 * 1.2.0
     - Adding translator component
     - Using [Kahlan](https://github.com/kahlan/kahlan) for unit tests
