@@ -16,7 +16,8 @@ use Bandama\Foundation\Translation\Translator;
  *
  * @package Bandama
  * @author Jean-François YOBOUE <yoboue.kouamej@live.fr>
- * @version 1.0.3
+ * @version 1.0.4
+ * @since 1.0.4 Bug fixed when deleting base URI
  * @since 1.0.3 Adding registerComponents method
  * @since 1.0.2 Making getInstance method inheritable
  * @since 1.0.1 Adding addService method
@@ -145,7 +146,11 @@ class App {
             $uri = $_GET['url'];
         }
 
-        $uri = substr($uri, strlen($this->baseUri));
+        // $baseUri not empty and $uri starts with $baseUri
+        if (!empty($this->baseUri) && substr($uri, 0, strlen($this->baseUri)) === $this->baseUri) {
+            // Extract $uri without $baseUri
+            $uri = substr($uri, strlen($this->baseUri));
+        }
 
         $this->get('router')->route($uri);
     }
@@ -182,7 +187,8 @@ class App {
      * - Register session object
      * - Register cookie object
      * - Register session flash object
-     *- Register translator
+     * - Register translator
+     * - Register components
      *
      * @param array $settings Application settings
      *
