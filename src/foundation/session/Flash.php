@@ -9,7 +9,8 @@ namespace Bandama\Foundation\Session;
  * @subpackage Foundation\Session
  * @see SessionInterface
  * @author Jean-François YOBOUE <yoboue.kouamej@live.fr>
- * @version 1.0.0
+ * @version 1.1.0
+ * @since 1.1.0 Allow registration of many types of flash messages, updating BANDAMA_FLASH_KEY value
  * @since 1.0.0 Class creation
  */
 class Flash {
@@ -22,7 +23,7 @@ class Flash {
     /**
      * @var string Session flash message key
      */
-    const BANDAMA_FLASH_KEY = 'banadama_flash';
+    const BANDAMA_FLASH_KEY = 'bandama_flash';
 
 
 
@@ -49,7 +50,8 @@ class Flash {
      * @return void
      */
     public function set($message, $type = 'success') {
-        $this->session->set(self::BANDAMA_FLASH_KEY, array('message' => $message, 'type' => $type));
+        $key = self::BANDAMA_FLASH_KEY.'_'.$type;
+        $this->session->set($key, $message);
     }
 
     /**
@@ -57,9 +59,10 @@ class Flash {
      *
      * @return mixed
      */
-    public function get() {
-        $flash = $this->session->get(self::BANDAMA_FLASH_KEY);
-        $this->session->delete(self::BANDAMA_FLASH_KEY);
+    public function get($type = 'success') {
+        $key = self::BANDAMA_FLASH_KEY.'_'.$type;
+        $flash = $this->session->get($key);
+        $this->session->delete($key);
 
         return $flash;
     }
