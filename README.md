@@ -78,6 +78,8 @@ $ php vendor/bin/kahlan --reporter=verbose --coverage=4
 
 ## Change log
 
+* 1.2.3
+    - Allow registration of many types of flash messages
 * 1.2.2
     - Bug fixed when deleting base URI
 * 1.2.1
